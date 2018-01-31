@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!--遵从POM(项目对象模型)的版本-->
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--所有的POM文件要项目元素必须有三个必填字段:groupId，artifactId，version-->
+    <!--项目组编号-->
+    <groupId>cn.jiayuli.maven</groupId>
+    <!--项目名称-->
+    <artifactId>tale</artifactId>
+    <!--项目版本，快照版本多加"-SNAPSHOT"-->
+    <version>least</version>
+
+    <!--properties(属性)是值占位符。它们的值可以通过使用符号${X}在POM中的任何位置访问-->
+    <properties>
+        <!--项目统一字符集编码为UTF-8-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--设置依赖版本号占位符-->
+        <sqlite.version>3.15.1</sqlite.version>
+        <blade-mvc.version>2.0.6-BETA</blade-mvc.version>
+        <blade-jdbc.version>0.2.2-RELEASE</blade-jdbc.version>
+        <blade-tpl.verion>0.1.2</blade-tpl.verion>
+        <blade-validator>0.0.2</blade-validator>
+        <commonmark.version>0.10.0</commonmark.version>
+        <rome.version>1.0</rome.version>
+        <emoji.version>3.2.0</emoji.version>
+        <lombok.version>1.16.18</lombok.version>
+    </properties>
+
+    <!--依赖-->
+    <dependencies>
+
+        <!-- mvc -->
+        <dependency>
+            <groupId>com.bladejava</groupId>
+            <artifactId>blade-mvc</artifactId>
+            <version>${blade-mvc.version}</version>
+        </dependency>
+
+        <!-- 数据库操作 -->
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>${sqlite.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.bladejava</groupId>
+            <artifactId>blade-jdbc</artifactId>
+            <version>${blade-jdbc.version}</version>
+        </dependency>
+
+        <!-- 模板引擎 -->
+        <dependency>
+            <groupId>com.bladejava</groupId>
+            <artifactId>blade-template-jetbrick</artifactId>
+            <version>${blade-tpl.verion}</version>
+        </dependency>
+
+        <!--markdown处理-->
+        <dependency>
+            <groupId>com.atlassian.commonmark</groupId>
+            <artifactId>commonmark</artifactId>
+            <version>${commonmark.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.commonmark</groupId>
+            <artifactId>commonmark-ext-gfm-tables</artifactId>
+            <version>${commonmark.version}</version>
+        </dependency>
+
+        <!--RSS输出-->
+        <dependency>
+            <groupId>rome</groupId>
+            <artifactId>rome</artifactId>
+            <version>${rome.version}</version>
+        </dependency>
+
+        <!--过滤 emoji 字符-->
+        <dependency>
+            <groupId>com.vdurmont</groupId>
+            <artifactId>emoji-java</artifactId>
+            <version>${emoji.version}</version>
+        </dependency>
+
+        <!-- 验证 -->
+        <dependency>
+            <groupId>com.bladejava</groupId>
+            <artifactId>blade-validator</artifactId>
+            <version>${blade-validator}</version>
+        </dependency>
+
+        <!-- 简单的注解形式 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <!--scope默认的模式为compile-->
+            <!--provided表示对应的依赖会由运行这个应用的JDK或者容器来提供，意味着打包的时候不用包进去-->
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <!--远程仓库-->
+    <repositories>
+
+        <!--正式/稳定版本-->
+        <repository>
+            <id>oss-releases</id>
+            <url>https://oss.sonatype.org/content/repositories/releases</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <!--开发/快照版本-->
+        <repository>
+            <id>oss-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <!--多个环境文件配置信息-->
+    <profiles>
+
+        <!--生产环境-->
+        <profile>
+            <id>prod</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/java</directory>
+                        <filtering>false</filtering>
+                        <excludes>
+                            <exclude>**/*.java</exclude>
+                        </excludes>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+
+        <!--开发环境-->
+        <profile>
+            <id>dev</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/java</directory>
+                        <filtering>false</filtering>
+                    </resource>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>false</filtering>
+                    </resource>
+                    <resource>
+                        <directory>src/main/test</directory>
+                        <filtering>false</filtering>
+                    </resource>
+                    <resource>
+                        <directory>src/test/resources</directory>
+                        <filtering>false</filtering>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
+        <finalName>tale</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptors>
+                        <descriptor>package.xml</descriptor>
+                    </descriptors>
+                    <outputDirectory>${project.build.directory}/dist/</outputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>cn.jiayuli.tale.Application</mainClass>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                        <manifestEntries>
+                            <!-- 在Class-Path下添加配置文件的路径 -->
+                            <Class-Path>resources/</Class-Path>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
