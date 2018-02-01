@@ -1,5 +1,7 @@
+package cn.jiayuli;
+
 public class HelloWorld {
     public static void main(String[] args) {
-        System.out.println("Hello World By Command!");
+        System.out.println("Hello World By IDEA!");
     }
 }

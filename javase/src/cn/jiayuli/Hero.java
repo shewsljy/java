@@ -1,3 +1,5 @@
+package cn.jiayuli;
+
 public class Hero {
 
     String name;//名字
@@ -8,7 +10,7 @@ public class Hero {
 
     int moveSpeed;//移动速度
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         Hero garen = new Hero();
         garen.name = "盖伦";
         garen.hp = 616.25f;
