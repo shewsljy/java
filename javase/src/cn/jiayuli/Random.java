@@ -6,6 +6,13 @@ package cn.jiayuli;
  * @date 2018/2/5 11:29
  */
 public class Random {
+    /**
+     * @description 
+     * @author jiayu
+     * @date 2018/2/6 17:51
+     * @param [args]
+     * @return void
+     */
     public static void main(String[] args) {
         //随机浮点数[0.0, 1.0)
         double randomOfDouble = Math.random();

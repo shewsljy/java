@@ -1,5 +1,10 @@
 package cn.jiayuli;
 
+/**
+ * @author jiayu
+ * @description
+ * @date 2018/2/5 10:23
+ */
 public class Hero {
 
     String name;//名字
@@ -9,7 +14,14 @@ public class Hero {
     float armor;//护甲
 
     int moveSpeed;//移动速度
-
+    
+    /**
+     * @description 
+     * @author jiayu
+     * @date 2018/2/6 17:50
+     * @param [args]
+     * @return void
+     */
     public static void main(String[] args) {
         Hero garen = new Hero();
         garen.name = "盖伦";

@@ -9,6 +9,13 @@ public class Final {
     //类中的常量
     static final double PI_VALUE_IN_CLASS = 3.144;
 
+    /**
+     * @description 
+     * @author jiayu
+     * @date 2018/2/6 17:50
+     * @param [args]
+     * @return void
+     */
     public static void main(String[] args) {
         //方法中的常量
         final double PI_VALUE_METHOD = 3.14;
