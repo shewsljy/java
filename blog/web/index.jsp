@@ -13,11 +13,11 @@
   <body>
   我的java博客
   <hr>
-  <a href="/blog/FirstServlet">Get方式请求FirstServlet</a>
-  <form action="/blog/FirstServlet" method="post">
-    <input type="submit" value="Post方式请求FirstServlet">
+  <a href="./FirstServlet">传统的Servlet(3.0之前)写法，Get方式请求FirstServlet</a>
+  <form action="./FirstServlet" method="post">
+    <input type="submit" value="传统的Servlet(3.0之前)写法，Post方式请求FirstServlet">
   </form>
   <hr>
-  <a href="/blog/AddServlet?a=12&b=34">Get方式请求AddServlet</a>
+  <a href="./AddServlet?a=12&b=34">新版Servlet(3.0)的写法，Get方式请求AddServlet</a>
   </body>
 </html>
