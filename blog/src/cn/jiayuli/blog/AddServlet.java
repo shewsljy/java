@@ -20,7 +20,12 @@ public class AddServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        System.out.println("处理AddServlet的post()请求。。。");
+        int a = Integer.parseInt(request.getParameter("a"));
+        int b = Integer.parseInt(request.getParameter("b"));
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        response.getWriter().append("正整数a为" + a + "，正整数b为" + b + "。" + "a+b=" + (a + b) + "");
     }
 
     @Override
@@ -30,6 +35,6 @@ public class AddServlet extends HttpServlet {
         int b = Integer.parseInt(request.getParameter("b"));
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
-        response.getWriter().append("a+b="+ (a + b) + "");
+        response.getWriter().append("正整数a为" + a + "，正整数b为" + b + "。" + "a+b=" + (a + b) + "");
     }
 }
