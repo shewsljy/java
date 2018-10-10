@@ -10,8 +10,10 @@ public class Recharge {
     private double balance;
     private String remark;
     private String createStaff;
+    //@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
     private String updateStaff;
+    //@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     public int getId() {
