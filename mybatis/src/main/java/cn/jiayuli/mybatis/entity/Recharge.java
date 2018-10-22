@@ -3,24 +3,48 @@ package cn.jiayuli.mybatis.entity;
 import java.util.Date;
 
 public class Recharge {
-    private int id;
+    private Integer id;
+
     private String name;
-    private double total;
-    private double used;
-    private double balance;
+
+    private Double total;
+
+    private Double used;
+
+    private Double balance;
+
     private String remark;
+
     private String createStaff;
-    //@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+
     private Date createTime;
+
     private String updateStaff;
-    //@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+
     private Date updateTime;
 
-    public int getId() {
+    public Recharge(Integer id, String name, Double total, Double used, Double balance, String remark, String createStaff, Date createTime, String updateStaff, Date updateTime) {
+        this.id = id;
+        this.name = name;
+        this.total = total;
+        this.used = used;
+        this.balance = balance;
+        this.remark = remark;
+        this.createStaff = createStaff;
+        this.createTime = createTime;
+        this.updateStaff = updateStaff;
+        this.updateTime = updateTime;
+    }
+
+    public Recharge() {
+        super();
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -29,30 +53,30 @@ public class Recharge {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
-    public double getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(double total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 
-    public double getUsed() {
+    public Double getUsed() {
         return used;
     }
 
-    public void setUsed(double used) {
+    public void setUsed(Double used) {
         this.used = used;
     }
 
-    public double getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 
@@ -61,7 +85,7 @@ public class Recharge {
     }
 
     public void setRemark(String remark) {
-        this.remark = remark;
+        this.remark = remark == null ? null : remark.trim();
     }
 
     public String getCreateStaff() {
@@ -69,7 +93,7 @@ public class Recharge {
     }
 
     public void setCreateStaff(String createStaff) {
-        this.createStaff = createStaff;
+        this.createStaff = createStaff == null ? null : createStaff.trim();
     }
 
     public Date getCreateTime() {
@@ -85,7 +109,7 @@ public class Recharge {
     }
 
     public void setUpdateStaff(String updateStaff) {
-        this.updateStaff = updateStaff;
+        this.updateStaff = updateStaff == null ? null : updateStaff.trim();
     }
 
     public Date getUpdateTime() {

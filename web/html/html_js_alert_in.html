@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script> -->
+    <script type="text/javascript">
+        alert("My First JavaScript On Head");
+        function functionOfHead() {
+            document.getElementById("head").innerHTML = "My First JavaScript Function On Head";
+        }
+    </script>
+</head>
+<body>
+    <script type="text/javascript">
+        alert("My First JavaScript On Body Before String");
+        document.write("<h1>This is a heading on body script document write</h1>");
+        document.write("<p>This is a paragraph on body script document write</p>");
+        function functionOfBodyBefore() {
+            document.getElementById("bodyBefore").innerHTML = "My First JavaScript Function On BodyBefore";
+        }
+    </script>
+    My First JavaScript
+    <br>
+    <p id="head">This is a paragraph string, change it onclick "button head"</p>
+    <br>
+    <p id="bodyBefore">This is a paragraph string, change it onclick "button body before"</p>
+    <br>
+    <p id="bodyAfter">This is a paragraph string, change it onclick "button body after"</p>
+    <br>
+    <button type="button" onclick="functionOfHead()">button head</button>
+    <br>
+    <button type="button" onclick="functionOfBodyBefore()">button body before</button>
+    <br>
+    <button type="button" onclick="functionOfBodyAfter()">button body after</button>
+    <br>
+    <button type="button" onclick="functionOfBodyAfterCharge()">button body after charge</button>
+    <script type="text/javascript">
+        alert("My First JavaScript On Body After String");
+        function functionOfBodyAfter() {
+            //var bodyString; //undefined
+            var bodyString = "On BodyAfter";
+            document.getElementById("bodyAfter").innerHTML = "My First JavaScript Function "+bodyString;
+        }
+        function functionOfBodyAfterCharge() {
+            document.write("Nothing on body after script document write");
+            document.write("<br>");
+            document.write("Hello \
+                World!");
+        }
+    </script>
+</body>
+</html>

@@ -8,7 +8,7 @@
             <transactionManager type="JDBC"/>
             <!-- 配置数据库连接信息 -->
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
                 <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useUnicode=true&amp;useSSL=true&amp;characterEncoding=utf8&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=Asia/Shanghai"/>
                 <property name="username" value="root"/>
                 <property name="password" value="root"/>
@@ -18,6 +18,6 @@
     <!-- 注册userMapper.xml文件，
          userMapper.xml位于me.gacl.mapping这个包下，所以resource写成me/gacl/mapping/userMapper.xml-->
     <mappers>
-        <mapper resource="mapper/rechargeMapper.xml"/>
+        <mapper resource="mybatis-mapper/RechargeMapper.xml"/>
     </mappers>
 </configuration>
