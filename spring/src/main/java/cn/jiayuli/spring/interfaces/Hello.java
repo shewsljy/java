@@ -1,5 +1,5 @@
 package cn.jiayuli.spring.interfaces;
 
-public interface HelloApi {
+public interface Hello {
     public void sayHello();
 }

@@ -8,5 +8,9 @@
             id ：用于之后从spring容器获得实例时使用的
             class ：需要创建实例的全限定类名
     -->
-    <bean id="hello" class="cn.jiayuli.spring.implement.HelloImpl"></bean>
+    <bean id="helloJava" class="cn.jiayuli.spring.implement.HelloJava"></bean>
+    <bean id="helloPython" class="cn.jiayuli.spring.implement.HelloPython"></bean>
+    <bean id="helloService" class="cn.jiayuli.spring.services.HelloService">
+        <property name="hello" ref="helloJava"></property>
+    </bean>
 </beans>
