@@ -16,7 +16,7 @@ public class UserController {
     @RequestMapping("/{id}")
     public String getUser(@PathVariable Integer id, Model model) {
         model.addAttribute("user", new User(id, "张三", 27, "广西南宁"));
-        return "/user/detail";
+        return "demo/user/detail";
     }
 
     @RequestMapping("/list")
@@ -26,6 +26,6 @@ public class UserController {
             userList.add(new User(i, "张三" + i, 27 + i, "广西南宁"));
         }
         model.addAttribute("users", userList);
-        return "/user/list";
+        return "demo/user/list";
     }
 }
