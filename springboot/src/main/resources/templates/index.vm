@@ -13,5 +13,30 @@
     ${foo}
 <br>$foo
 <br>$!{foo}
+    ${fot}
+<br>$fot
+<br>$!{fot}
+
+## 声明宏
+    #macro(sayHello $name $age)
+    hello $!{name},your age are $!{age}!
+    #end
+## 使用宏
+    #sayHello("NICK",21)
+    #sayHello("TOMCAT")
+
+## 判断null
+    #set($isNull = '')
+    a$isNull a
+<br>
+    b${isNull} b
+<br>
+    c$!{isNull} c
+<br>
+    #if($null.isNull($isNull))
+        bbbbbbb
+    #else
+        ccccccc
+    #end
 </body>
 </html>
