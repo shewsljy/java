@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("cn.jiayuli.myhome")
+@MapperScan("cn.jiayuli.myhome.demo.dao")
 public class MyhomeApplication {
 
     public static void main(String[] args) {

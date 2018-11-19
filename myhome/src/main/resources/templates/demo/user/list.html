@@ -9,10 +9,10 @@
     <div>
         <ul>
             <li th:each="user:${users}">
-                <span th:text="${user.id}"></span>:
-                <span th:text="${user.name}"></span>,
-                <span th:text="${user.age}"></span>,
-                <span th:text="${user.address}"></span>
+                用户ID：<span th:text="${user.id}"></span>；
+                用户名称：<span th:text="${user.userName}"></span>；
+                用户密码：<span th:text="${user.password}"></span>；
+                用户手机号码：<span th:text="${user.phoneNumber}"></span>
             </li>
         </ul>
     </div>

@@ -2,8 +2,12 @@ package cn.jiayuli.myhome.demo.service;
 
 import cn.jiayuli.myhome.demo.model.DemoUserInfo;
 
+import java.util.List;
+
 public interface DemoUserInfoService {
 
-    public DemoUserInfo queryUserInfoById(Long id);
+    DemoUserInfo queryUserInfoById(Long id);
+
+    List<DemoUserInfo> queryUserInfoAll();
 
 }
