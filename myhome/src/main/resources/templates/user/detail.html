@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息详情</title>
+</head>
+<body>
+    <h2>用户信息</h2>
+    <div>
+        <ul>
+            <li th:text="${user.id}"></li>
+            <li th:text="${user.userName}"></li>
+            <li th:text="${user.password}"></li>
+            <li th:text="${user.phoneNumber}"></li>
+        </ul>
+    </div>
+</body>
+</html>

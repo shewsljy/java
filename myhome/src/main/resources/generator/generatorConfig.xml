@@ -73,8 +73,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table schema="myhome" tableName="t_demo_user_info" domainObjectName="DemoUserInfo">
-            <!--enableSelectByPrimaryKey="true"
+        <!--enableSelectByPrimaryKey="true"
                enableUpdateByPrimaryKey="true"
                enableDeleteByPrimaryKey="true"
                selectByPrimaryKeyQueryId="true"
@@ -83,7 +82,10 @@
                enableDeleteByExample="false"
                enableSelectByExample="false"
                selectByExampleQueryId="false"-->
-            <!--<generatedKey column="id" sqlStatement="MySql" identity="true" />-->
+        <!--<generatedKey column="id" sqlStatement="MySql" identity="true" />-->
+        <table schema="${table.scheme}" tableName="t_user_info" domainObjectName="UserInfo">
+            <!--插入记录时返回id值-->
+            <generatedKey column="id" sqlStatement="MySql" identity="true" />
         </table>
 
     </context>
