@@ -6,19 +6,65 @@
 </head>
 <body>
     <h2>用户列表</h2>
-    <div>
-        <ul>
-            <li th:each="user:${users}">
-                用户ID：<span th:text="${user.id}"></span>；
-                用户名称：<span th:text="${user.userName}"></span>；
-                用户密码：<span th:text="${user.passWord}"></span>；
-                用户状态：<span th:text="${user.status}"></span>；
-                创建时间：<span th:text="${user.createTime}"></span>；
-                创建人：<span th:text="${user.createUser}"></span>；
-                更新时间：<span th:text="${user.updateTime}"></span>；
-                更新人：<span th:text="${user.updateUser}"></span>
-            </li>
-        </ul>
-    </div>
+    <hr/>
+    <table>
+        <thead>
+        <tr align="left">
+            <th width="10%">用户ID</th>
+            <th width="10%">用户名称</th>
+            <th width="10%">用户密码</th>
+            <th width="10%">用户状态</th>
+            <th width="15%">创建时间</th>
+            <th width="10%">创建人</th>
+            <th width="15%">更新时间</th>
+            <th width="10%">更新人</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="userInfo : ${pageUserInfo.list}">
+            <td th:text="${userInfo.id}"></td>
+            <td th:text="${userInfo.userName}"></td>
+            <td th:text="${userInfo.passWord}"></td>
+            <td th:text="${userInfo.status}"></td>
+            <td th:text="${#dates.format(userInfo.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+            <td th:text="${userInfo.createUser}"></td>
+            <td th:text="${#dates.format(userInfo.updateTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+            <td th:text="${userInfo.updateUser}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <hr />
+    <table>
+        <tr>
+            <td width="10%" th:if="${pageUserInfo.hasPreviousPage}">
+                <a th:href="'?pageNo=1'">首页</a>
+            </td>
+            <td width="10%" th:if="${pageUserInfo.hasPreviousPage}">
+                <a th:href="'?pageNo='+${pageUserInfo.prePage}">上一页</a>
+            </td>
+            <td width="10%" th:each="nav : ${pageUserInfo.navigatepageNums}">
+                <a th:href="'?pageNo='+${nav}" th:text="${nav}" th:if="${nav != pageUserInfo.pageNum}"></a>
+                <span style="font-weight: bold" th:if="${nav == pageUserInfo.pageNum}" th:text="${nav}"></span>
+            </td>
+            <td width="10%" th:if="${pageUserInfo.hasNextPage}">
+                <a th:href="'?pageNo='+${pageUserInfo.nextPage}">下一页</a>
+            </td>
+            <td width="10%" th:if="${pageUserInfo.hasNextPage}">
+                <a th:href="'?pageNo='+${pageUserInfo.pages}">尾页</a>
+            </td>
+        </tr>
+    </table>
+    <hr />
+    <div>当前页号：<span th:text="${pageUserInfo.pageNum}"></span></div>
+    <div>每页条数：<span th:text="${pageUserInfo.pageSize}"></span></div>
+    <div>起始行号：<span th:text="${pageUserInfo.startRow}"></span></div>
+    <div>终止行号：<span th:text="${pageUserInfo.endRow}"></span></div>
+    <div>总结果数：<span th:text="${pageUserInfo.total}"></span></div>
+    <div>总页数：<span th:text="${pageUserInfo.pages}"></span></div>
+    <hr />
+    <div>是否为第一页：<span th:text="${pageUserInfo.isFirstPage}"></span></div>
+    <div>是否为最后一页：<span th:text="${pageUserInfo.isLastPage}"></span></div>
+    <div>是否有前一页：<span th:text="${pageUserInfo.hasPreviousPage}"></span></div>
+    <div>是否有下一页：<span th:text="${pageUserInfo.hasNextPage}"></span></div>
 </body>
 </html>
