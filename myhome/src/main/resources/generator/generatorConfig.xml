@@ -83,6 +83,7 @@
                enableSelectByExample="false"
                selectByExampleQueryId="false"-->
         <!--<generatedKey column="id" sqlStatement="MySql" identity="true" />-->
+        <!--<table schema="${table.scheme}" tableName="t_demo_user_info" domainObjectName="DemoUserInfo"></table>-->
         <table schema="${table.scheme}" tableName="t_user_info" domainObjectName="UserInfo">
             <!--插入记录时返回id值-->
             <generatedKey column="id" sqlStatement="MySql" identity="true" />

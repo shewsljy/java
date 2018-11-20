@@ -11,8 +11,12 @@
             <li th:each="user:${users}">
                 用户ID：<span th:text="${user.id}"></span>；
                 用户名称：<span th:text="${user.userName}"></span>；
-                用户密码：<span th:text="${user.password}"></span>；
-                用户手机号码：<span th:text="${user.phoneNumber}"></span>
+                用户密码：<span th:text="${user.passWord}"></span>；
+                用户状态：<span th:text="${user.status}"></span>；
+                创建时间：<span th:text="${user.createTime}"></span>；
+                创建人：<span th:text="${user.createUser}"></span>；
+                更新时间：<span th:text="${user.updateTime}"></span>；
+                更新人：<span th:text="${user.updateUser}"></span>
             </li>
         </ul>
     </div>
