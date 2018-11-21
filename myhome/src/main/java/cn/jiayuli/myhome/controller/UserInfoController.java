@@ -2,6 +2,7 @@ package cn.jiayuli.myhome.controller;
 
 import cn.jiayuli.myhome.model.UserInfo;
 import cn.jiayuli.myhome.service.UserInfoService;
+import cn.jiayuli.myhome.util.ConstantsUtil;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -29,8 +28,8 @@ public class UserInfoController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/list")
-    public String getUserInfoList(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-                                  @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+    public String getUserInfoList(@RequestParam(value = "pageNo", defaultValue = ConstantsUtil.PAGEINFO.USER_INFO_PAGE_NO) int pageNo,
+                                  @RequestParam(value = "pageSize", defaultValue = ConstantsUtil.PAGEINFO.USER_INFO_PAGE_SIZE) int pageSize,
                                   Model model) {
         PageInfo<UserInfo> pageUserInfo = userInfoService.queryUserInfoAllPage(pageNo, pageSize);
         model.addAttribute("pageUserInfo", pageUserInfo);
