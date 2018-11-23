@@ -27,7 +27,10 @@
         <property name="beginningDelimiter" value="`"/>
         <property name="endingDelimiter" value="`"/>
 
+        <!--生成toString方法-->
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
+        <!--序列化-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
 
         <!-- 为了防止生成的代码中有很多注释，比较难看，加入下面的配置控制 -->
         <commentGenerator>
