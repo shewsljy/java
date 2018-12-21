@@ -1,0 +1,9 @@
+<html>
+<body>
+    ${message}
+<br>
+    ${time}
+<br>
+    <a href="/detail">跳转到/detail</a>
+</body>
+</html>

@@ -1,42 +1,11 @@
 <html>
 <body>
-亲爱的${toUserName}，你好！
-
     ${message}
-
-祝：开心！
-    ${fromUserName}
+<br>
     ${time}
-
 <br>
-    #set($foo = 2333)
-    ${foo}
-<br>$foo
-<br>$!{foo}
-    ${fot}
-<br>$fot
-<br>$!{fot}
-
-## 声明宏
-    #macro(sayHello $name $age)
-    hello $!{name},your age are $!{age}!
-    #end
-## 使用宏
-    #sayHello("NICK",21)
-    #sayHello("TOMCAT")
-
-## 判断null
-    #set($isNull = '')
-    a$isNull a
+    <a href="/list">跳转到/list</a>
 <br>
-    b${isNull} b
-<br>
-    c$!{isNull} c
-<br>
-    #if($null.isNull($isNull))
-        bbbbbbb
-    #else
-        ccccccc
-    #end
+    <a href="/map">跳转到/map</a>
 </body>
 </html>

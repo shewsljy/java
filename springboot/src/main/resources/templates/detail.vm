@@ -1,0 +1,15 @@
+<html>
+<body>
+    ${message}
+<br>
+    ${time}
+<br>
+    <a href="javascript:history.go(-1)">跳转到上一个页面</a>
+</body>
+<br>
+    <a href="/express">跳转到/express</a>
+<br>
+    <a href="/invoice">跳转到/invoice</a>
+<br>
+</body>
+</html>
