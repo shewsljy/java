@@ -6,108 +6,97 @@
 
     <groupId>cn.jiayuli</groupId>
     <artifactId>mybatis</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
-        <!-- mybatis 版本号 -->
-        <mybatis.version>3.4.6</mybatis.version>
-        <!-- mybatis-generator-core 版本号 -->
-        <mybatis.generator.version>1.3.7</mybatis.generator.version>
-        <!-- mybatis-generator-maven-plugin 版本号 -->
-        <mybatis.generator.plugin.version>1.3.7</mybatis.generator.plugin.version>
-        <!-- mybatis-generator generatorConfig.xml配置文件路径 -->
-        <mybatis.generator.xmlfile>src/main/resources/mybatis-generator/generatorConfig.xml</mybatis.generator.xmlfile>
-        <!-- mysql 版本号 -->
-        <mysql.version>5.1.6</mysql.version>
-        <!-- protobuf 版本号 -->
-        <!--<protobuf.version>2.6.0</protobuf.version>-->
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <!-- ant 版本号 -->
+        <ant.version>1.10.5</ant.version>
         <!-- junit 版本号 -->
         <junit.version>4.12</junit.version>
-        <!-- hamcrest 版本号 -->
-        <hamcrest.version>1.3</hamcrest.version>
+        <!-- log4j-core 版本号 -->
+        <log4j-core.version>2.11.1</log4j-core.version>
+        <!-- slf4j-api 版本号 -->
+        <slf4j-api.version>1.7.25</slf4j-api.version>
+        <!-- log4j 版本号 -->
+        <log4j.version>1.2.17</log4j.version>
+        <!-- commons-logging 版本号 -->
+        <commons-logging.version>1.2</commons-logging.version>
+        <!-- javaparser-core 版本号 -->
+        <javaparser-core.version>3.10.1</javaparser-core.version>
+        <!-- mysql 版本号 -->
+        <mysql.version>8.0.13</mysql.version>
+
     </properties>
 
     <dependencies>
-        <!-- mybatis 包 -->
-        <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+        <!-- https://mvnrepository.com/artifact/org.apache.ant/ant -->
         <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>${mybatis.version}</version>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>${ant.version}</version>
         </dependency>
 
-        <!-- mybatis-generator-core 包 -->
-        <!-- https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core -->
-        <dependency>
-            <groupId>org.mybatis.generator</groupId>
-            <artifactId>mybatis-generator-core</artifactId>
-            <version>${mybatis.generator.version}</version>
-        </dependency>
-
-        <!-- mysql-connector-java 包-->
-        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java -->
-        <!--<dependency>
-            <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java</artifactId>
-            <version>${protobuf.version}</version>
-        </dependency>-->
-
-        <!-- junit 包 -->
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
-            <!-- 表示开发的时候引入，发布的时候不会加载此包 -->
             <scope>test</scope>
         </dependency>
 
-        <!-- hamcrest-core 包 -->
-        <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-core -->
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
         <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-core</artifactId>
-            <version>${hamcrest.version}</version>
-            <!-- 表示开发的时候引入，发布的时候不会加载此包 -->
-            <scope>test</scope>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j-core.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-api.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j-api.version}</version>
+            <!--<scope>test</scope>-->
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>${commons-logging.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.javaparser/javaparser-core -->
+        <dependency>
+            <groupId>com.github.javaparser</groupId>
+            <artifactId>javaparser-core</artifactId>
+            <version>${javaparser-core.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
     </dependencies>
-
-    <build>
-        <finalName>mybatis</finalName>
-        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-            <plugins>
-                <plugin>
-                    <groupId>org.mybatis.generator</groupId>
-                    <artifactId>mybatis-generator-maven-plugin</artifactId>
-                    <version>${mybatis.generator.plugin.version}</version>
-                    <configuration>
-                        <configurationFile>${mybatis.generator.xmlfile}</configurationFile>
-                        <verbose>true</verbose>
-                        <overwrite>true</overwrite>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>mybatis-generator</id>
-                            <goals>
-                                <goal>generate</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
-
 </project>
