@@ -1,5 +1,6 @@
-package cn.jiayuli;
+package cn.jiayuli.date;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -31,5 +32,9 @@ public class DateTest {
         System.out.println("changeDate是否在当前时间之前: " + changeDate.before(date));
         //after() 时间比对，该时间是否在比对时间之后
         System.out.println("changeDate是否在当前时间之后: " + changeDate.after(date));
+
+        System.out.println("当前系统时间：" + System.currentTimeMillis());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(dateFormat.format(System.currentTimeMillis()));
     }
 }
