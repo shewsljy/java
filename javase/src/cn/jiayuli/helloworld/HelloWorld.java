@@ -1,4 +1,4 @@
-package cn.jiayuli;
+package cn.jiayuli.helloworld;
 
 public class HelloWorld {
     /**

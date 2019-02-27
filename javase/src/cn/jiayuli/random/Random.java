@@ -1,4 +1,4 @@
-package cn.jiayuli;
+package cn.jiayuli.random;
 
 /**
  * @author jiayu

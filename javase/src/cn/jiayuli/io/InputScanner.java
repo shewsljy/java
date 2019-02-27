@@ -1,4 +1,4 @@
-package cn.jiayuli;
+package cn.jiayuli.io;
 import java.util.Scanner;
 /**
  * @author jiayu
