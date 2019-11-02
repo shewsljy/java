@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--导入属性配置-->
+    <properties resource="mybatis/mbg.properties"/>
+
+    <!-- 指定数据连接驱动jar地址 -->
+    <!--<classPathEntry-->
+            <!--location="${jdbc.driverLocation}"/>-->
+    <!-- 一个数据库一个context -->
+    <context id="home" targetRuntime="MyBatis3">
+
+        <!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表；
+            一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖
+         -->
+        <property name="autoDelimitKeywords" value="false"/>
+        <!-- 生成的Java文件的编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 格式化java代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 格式化XML代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+        <!-- beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； -->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <!--设置为 true 可以获取 tables 信息, 解决生成文件缺少 xxxByPrimaryKey 的问题 -->
+        <property name="useInformationSchema" value="true"/>
+
+        <!--ToStringPlugin-->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
+
+        <!--SerializablePlugin-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+
+        <!--EqualsHashCodePlugin-->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"></plugin>
+
+        <!--覆盖生成XML文件-->
+        <!--UnmergeableXmlMappersPlugin-->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
+
+        <!-- 为了防止生成的代码中有很多注释，比较难看，加入下面的配置控制 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"></property>
+            <property name="suppressDate" value="true"></property>
+        </commentGenerator>
+        <!-- 注释控制完毕 -->
+
+        <!-- jdbc连接 -->
+        <jdbcConnection driverClass="${jdbc.driver}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.userName}"
+                        password="${jdbc.passWord}"/>
+
+        <!-- 类型转换 -->
+        <javaTypeResolver>
+            <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 生成实体类的包名和位置 注意targetProject的值为实体类放在工程中具体位置的相对路径，-->
+        <javaModelGenerator targetPackage="${javaModelGenerator.targetPackage}"
+                            targetProject="${javaModelGenerator.targetProject}">
+            <!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+            <property name="enableSubPackages" value="true"/>
+            <!-- 是否针对string类型的字段在set的时候进行trim调用 -->
+            <property name="trimStrings" value="true"/>
+            <!-- 是否对model添加 构造函数 -->
+            <!--<property name="constructorBased" value="true"/>-->
+        </javaModelGenerator>
+
+        <!-- 生成的SQLMapper映射文件包名和位置 -->
+        <sqlMapGenerator targetPackage="${sqlMapGenerator.targetPackage}"
+                         targetProject="${sqlMapGenerator.targetProject}">
+            <!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 生成mapper接口dao文件位置，这里配置将生成的dao类放在me.gacl.dao这个包下 -->
+        <javaClientGenerator targetPackage="${javaClientGenerator.targetPackage}"
+                             targetProject="${javaClientGenerator.targetProject}" type="XMLMAPPER">
+            <!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table schema="${table.schema}" tableName="t_demo_user" domainObjectName="DemoUser">
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
+        </table>
+
+    </context>
+</generatorConfiguration>

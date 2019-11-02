@@ -1,0 +1,11 @@
+<html>
+<body>
+    ${message}
+<br>
+    ${time}
+<br>
+    <a href="/demo/index">跳转到/demo/index</a>
+<br>
+    <a href="/demo/detail">跳转到/demo/detail</a>
+</body>
+</html>

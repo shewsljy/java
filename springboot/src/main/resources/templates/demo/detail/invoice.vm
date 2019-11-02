@@ -4,6 +4,6 @@
 <br>
     ${time}
 <br>
-    <a href="/detail">跳转到/detail</a>
+    <a href="/demo/detail">跳转到/demo/detail</a>
 </body>
 </html>

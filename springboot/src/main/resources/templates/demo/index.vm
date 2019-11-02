@@ -1,0 +1,13 @@
+<script src="/js/jquery-3.4.1/jquery.min.js"></script>
+<script src="/js/js-busi/demo/demo.js"></script>
+    ${message}
+<br>
+    ${time}
+<br>
+    <a href="/demo/list">跳转到/demo/list</a>
+<br>
+    <a href="/demo/map">跳转到/demo/map</a>
+<br>
+<form id="demoForm" name="demoForm" action="/demo/index">
+
+</form>

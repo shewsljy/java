@@ -1,0 +1,128 @@
+###################################################################
+# 工程配置文件，使用yaml语言描述
+# yaml多环境配置，要启用其他环境，例如测试环境启动命令如下：
+#   java -jar home-0.0.1-SNAPSHOT.jar --spring.profiles.active=test
+###################################################################
+spring:
+  profiles:
+    active: dev
+
+##############################
+# logger settings 默认logback
+##############################
+logging:
+  level:
+    # 自定义不同类的日志级别
+    cn.jiayuli.springboot.home: debug
+    root: info
+  # 日志文件路径，默认日志名为：spring.log
+  file: home.log
+
+##############################
+# Server settings
+##############################
+server:
+  port: 18080
+  tomcat:
+    uri-encoding: utf-8
+  servlet:
+    context-path: /home
+    session:
+      timeout: 1800
+---
+###################################################################
+# 开发环境配置
+###################################################################
+
+###############################
+# spring 配置
+###############################
+spring:
+  profiles: dev
+
+  mvc:
+  static-path-pattern: /**
+
+  datasource:
+    name: home-dev
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/home?useUnicode=true&useSSL=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    username: home
+    password: home
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 100
+      max-wait: 30000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 30000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+
+  thymeleaf:
+    enabled: true
+    cache: false
+    check-template-location: true
+    suffix: .html
+    prefix: classpath:/templates/thymeleaf/
+    encoding: UTF-8
+    mode: HTML
+    template-resolver-order: 0
+
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+
+---
+###################################################################
+# 测试环境配置
+###################################################################
+
+###############################
+# spring 配置
+###############################
+spring:
+  profiles: test
+
+  mvc:
+  static-path-pattern: /**
+
+  datasource:
+    name: home-test
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/home?useUnicode=true&useSSL=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    username: home
+    password: home
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 100
+      max-wait: 30000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 30000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+
+  thymeleaf:
+    enabled: true
+    cache: false
+    check-template-location: true
+    suffix: .html
+    prefix: classpath:/templates/thymeleaf/
+    encoding: UTF-8
+    mode: HTML
+    template-resolver-order: 0
+
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true

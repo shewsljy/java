@@ -1,0 +1,14 @@
+<html>
+<body>
+    ${message}
+<br>
+    ${time}
+<br>
+    <a href="/demo/index">跳转到/demo/index页面</a>
+<br>
+    <a href="/demo/detail/express">跳转到/demo/detail/express</a>
+<br>
+    <a href="/demo/detail/invoice">跳转到/demo/detail/invoice</a>
+<br>
+</body>
+</html>
