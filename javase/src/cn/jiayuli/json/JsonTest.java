@@ -1,7 +1,7 @@
 package cn.jiayuli.json;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+//import com.alibaba.fastjson.JSONArray;
+//import com.alibaba.fastjson.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,22 +35,22 @@ public class JsonTest {
 
         System.out.println(map.get("bind"));
 
-        Map<String,String> acctMap = (Map)JSONObject.parseObject(acct);
-        Map<String,String> bindMap = (Map)JSONObject.parseObject(bind);
-
-        JSONObject jsonObject = new JSONObject();
-        jsonObject = JSONObject.parseObject(bind);
-
-        JSONArray jsonArray = new JSONArray();
-        jsonArray = jsonObject.getJSONArray("bankInfo");
-
-        for (int i = 0; i < jsonArray.size(); i++) {
-            JSONObject json = jsonArray.getJSONObject(i);
-            Map<String,String> bankInfoMap = (Map)json;
-            System.out.println();
-        }
-
-        System.out.println(jsonArray.size());
+//        Map<String,String> acctMap = (Map)JSONObject.parseObject(acct);
+//        Map<String,String> bindMap = (Map)JSONObject.parseObject(bind);
+//
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject = JSONObject.parseObject(bind);
+//
+//        JSONArray jsonArray = new JSONArray();
+//        jsonArray = jsonObject.getJSONArray("bankInfo");
+//
+//        for (int i = 0; i < jsonArray.size(); i++) {
+//            JSONObject json = jsonArray.getJSONObject(i);
+//            Map<String,String> bankInfoMap = (Map)json;
+//            System.out.println();
+//        }
+//
+//        System.out.println(jsonArray.size());
         //(JSONObject)jsonArray.get(i);
          //JSONArray.parseObject(bankInfo);
         int a = 3;
