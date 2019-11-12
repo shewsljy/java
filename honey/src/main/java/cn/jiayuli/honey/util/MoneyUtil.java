@@ -154,9 +154,8 @@ public class MoneyUtil {
     }
 
     public static void main(String[] args) {
-        //   System.out.println(getMoneyStr(2222222222222222222L));
 
-//        System.out.println(convertCentToYuan(2222222222222222222L));
+        System.out.println(convertCentToYuan(2222222222222222222L));
         System.out.println(convertYuanToCent("0.01"));
         System.out.println(convertYuanToCent("0"));
         System.out.println(convertYuanToCent("0.00"));
