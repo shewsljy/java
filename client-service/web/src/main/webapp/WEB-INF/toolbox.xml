@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<toolbox>
+    <tool>
+        <key>comparisonDateTool</key>
+        <class>org.apache.velocity.tools.generic.ComparisonDateTool</class>
+        <scope>application</scope>
+    </tool>
+    <tool>
+        <key>dateTool</key>
+        <class>org.apache.velocity.tools.generic.DateTool</class>
+        <scope>application</scope>
+    </tool>
+    <tool>
+        <key>displayTool</key>
+        <class>org.apache.velocity.tools.generic.DisplayTool</class>
+        <scope>application</scope>
+    </tool>
+    <tool>
+        <key>escapeTool</key>
+        <class>org.apache.velocity.tools.generic.EscapeTool</class>
+        <scope>application</scope>
+    </tool>
+    <tool>
+        <key>mathTool</key>
+        <class>org.apache.velocity.tools.generic.MathTool</class>
+        <scope>application</scope>
+    </tool>
+    <tool>
+        <key>numberTool</key>
+        <class>org.apache.velocity.tools.generic.NumberTool</class>
+        <scope>application</scope>
+    </tool>
+    <tool>
+        <key>sortTool</key>
+        <class>org.apache.velocity.tools.generic.SortTool</class>
+        <scope>application</scope>
+    </tool>
+</toolbox>

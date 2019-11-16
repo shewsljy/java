@@ -1,0 +1,2 @@
+<p>appName:$!{appName}</p>
+<p>demoVO:$!{demoVO.appName}</p>

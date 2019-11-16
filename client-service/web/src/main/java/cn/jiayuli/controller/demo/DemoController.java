@@ -6,12 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * ClassName: DemoController <br>
- * Description: TODO
+ * Description: Demo
  *
  * @author jiayu
  * @version V1.0
@@ -26,13 +27,27 @@ public class DemoController {
     private DemoSIDSV demoSIDSV;
 
     @RequestMapping("/demo")
+    public String demoIndex(Model model){
+        logger.info("demo info");
+        logger.debug("demo debug");
+        logger.error("demo error");
+        logger.warn("demo warn");
+        logger.trace("demo trace");
+        DemoVO demoVO = demoSIDSV.queryAppName();
+        String appName = demoVO.getAppName();
+        model.addAttribute("demoVO",demoVO);
+        model.addAttribute("appName",appName);
+        return "/demo/index";
+    }
+
+    @RequestMapping("/demoBody")
     @ResponseBody
-    public String demoIndex(){
-        logger.info("info");
-        logger.debug("debug");
-        logger.error("error");
-        logger.warn("warn");
-        logger.trace("trace");
+    public String demoBodyIndex(){
+        logger.info("demoBody info");
+        logger.debug("demoBody debug");
+        logger.error("demoBody error");
+        logger.warn("demoBody warn");
+        logger.trace("demoBody trace");
         DemoVO demoVO = demoSIDSV.queryAppName();
         String appName = demoVO.getAppName();
         return appName;

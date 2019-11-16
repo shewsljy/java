@@ -31,6 +31,11 @@
 <!--    <mvc:resources mapping="/css/**" location="/css/"/>-->
 <!--    <mvc:resources mapping="/image/**" location="/image/"/>-->
 <!--    <mvc:resources mapping="/html/**" location="/html/"/>-->
+
+    <!-- dubbo 配置 -->
     <import resource="classpath:dubbo/dubbo-consumer.xml"/>
+
+    <!-- velocity 配置 -->
+    <import resource="classpath:velocityConfig.xml"/>
 
 </beans>
