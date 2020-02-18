@@ -7,26 +7,29 @@ spring:
 spring:
   profiles: dev
   datasource:
-    url: jdbc:h2:mem:devdb
-    driver-class-name: org.h2.Driver
-    username: dev
-    password: dev
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/honey?useUnicode=true&useSSL=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    username: honey
+    password: honey
+
   jpa:
-    open-in-view: false
-    database-platform: org.hibernate.dialect.H2Dialect
     show-sql: true
+    open-in-view: false
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
 
 server:
-  port: 18080
+  port: 28080
 
 logging:
   level:
-    org:
-      springframework:
-        web: DEBUG
-      hibernate: DEBUG
+    # 自定义不同类的日志级别
+    cn.jiayuli.honey: debug
+    root: info
 ---
 #test environment
 spring:
@@ -35,7 +38,7 @@ spring:
     open-in-view: false
 
 server:
-  port: 18085
+  port: 28085
 
 
 ---
@@ -46,5 +49,5 @@ spring:
     open-in-view: false
 
 server:
-  port: 18090
+  port: 28090
 
