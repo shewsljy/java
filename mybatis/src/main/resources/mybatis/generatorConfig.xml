@@ -11,7 +11,7 @@
     <!--<classPathEntry-->
             <!--location="${jdbc.driverLocation}"/>-->
     <!-- 一个数据库一个context -->
-    <context id="myhome" targetRuntime="MyBatis3">
+    <context id="litemall" targetRuntime="MyBatis3">
 
         <!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表；
             一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖
@@ -35,23 +35,23 @@
         <!--SerializablePlugin-->
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
 
-        <!--RenameExampleClassPlugin-->
-        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
-            <property name="searchString" value="Example$"></property>
-            <property name="replaceString" value="Criteria"></property>
-        </plugin>
+<!--        &lt;!&ndash;RenameExampleClassPlugin&ndash;&gt;-->
+<!--        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">-->
+<!--            <property name="searchString" value="Example$"></property>-->
+<!--            <property name="replaceString" value="Criteria"></property>-->
+<!--        </plugin>-->
 
-        <!--RenameJavaMapperClassPlugin-->
-        <plugin type="org.mybatis.generator.plugins.RenameJavaMapperClassPlugin">
-            <property name="searchString" value="Mapper$"></property>
-            <property name="replaceString" value="Dao"></property>
-        </plugin>
+<!--        &lt;!&ndash;RenameJavaMapperClassPlugin&ndash;&gt;-->
+<!--        <plugin type="org.mybatis.generator.plugins.RenameJavaMapperClassPlugin">-->
+<!--            <property name="searchString" value="Mapper$"></property>-->
+<!--            <property name="replaceString" value="Dao"></property>-->
+<!--        </plugin>-->
 
-        <!--RenameXmlMapperFilePlugin-->
-        <plugin type="org.mybatis.generator.plugins.RenameXmlMapperFilePlugin">
-            <property name="searchString" value="Mapper"></property>
-            <property name="replaceString" value="Dao"></property>
-        </plugin>
+<!--        &lt;!&ndash;RenameXmlMapperFilePlugin&ndash;&gt;-->
+<!--        <plugin type="org.mybatis.generator.plugins.RenameXmlMapperFilePlugin">-->
+<!--            <property name="searchString" value="Mapper"></property>-->
+<!--            <property name="replaceString" value="Dao"></property>-->
+<!--        </plugin>-->
 
         <!-- 为了防止生成的代码中有很多注释，比较难看，加入下面的配置控制 -->
         <commentGenerator>
@@ -96,8 +96,27 @@
             <!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
-
-        <table schema="${table.schema}" tableName="t_demo_user" domainObjectName="DemoUser"></table>
-
+<!--        <table schema="${table.schema}" tableName="t_ads_info" domainObjectName="AdsInfo"></table>-->
+<!--        <table schema="${table.schema}" tableName="t_api_service_log" domainObjectName="ApiServiceLog"></table>-->
+<!--        <table schema="${table.schema}" tableName="t_beltline" domainObjectName="BeltLine"></table>-->
+<!--        <table schema="${table.schema}" tableName="t_brand_info" domainObjectName="BrandInfo"></table>-->
+<!--        <table schema="${table.schema}" tableName="t_cage_lever_change" domainObjectName="CageLeverChange"></table>-->
+<!--        <table schema="${table.schema}" tableName="t_category_info" domainObjectName="CategoryInfo"></table>-->
+<!--        <table schema="${table.schema}" tableName="t_complaint_info" domainObjectName="ComplaintInfo"></table>-->
+<!--        <table schema="${table.schema}" tableName="t_dumping_info" domainObjectName="DumpingInfo"></table>-->
+<!--        <table schema="${table.schema}" tableName="t_enterprise_info" domainObjectName="EnterpriseInfo"></table>-->
+<!--        <table schema="${table.schema}" tableName="t_enterprise_qualif_info" domainObjectName="EnterpriseQualifInfo"></table>-->
+<!--        <table schema="${table.schema}" tableName="t_group_info" domainObjectName="GroupInfo"></table>-->
+<!--        <table schema="${table.schema}" tableName="t_product_info" domainObjectName="ProductInfo"></table>-->
+        <table schema="${table.schema}" tableName="t_source_code" domainObjectName="SourceCode"></table>
+<!--        <table schema="${table.schema}" tableName="t_source_query_log" domainObjectName="SourceQueryLog"></table>-->
+<!--        <table schema="${table.schema}" tableName="t_spray_gun" domainObjectName="SprayGun"></table>-->
+<!--        <table schema="${table.schema}" tableName="t_storage_info" domainObjectName="StorageInfo"></table>-->
+<!--        <table schema="${table.schema}" tableName="t_sys_notice" domainObjectName="SysNoticeSY"></table>-->
+<!--        <table schema="${table.schema}" tableName="t_sys_notice_red" domainObjectName="SysNoticeRedSY"></table>-->
+<!--        <table schema="${table.schema}" tableName="t_warehousing_entry" domainObjectName="WarehousingEntry"></table>-->
+<!--        <table schema="${table.schema}" tableName="t_warehousing_entry_detail" domainObjectName="WarehousingEntryDetail"></table>-->
+<!--        <table schema="${table.schema}" tableName="t_warehousing_entry_filing" domainObjectName="WarehousingEntryFiling"></table>-->
+<!--        <table schema="${table.schema}" tableName="t_base_area_admin" domainObjectName="BaseAreaAdmin"></table>-->
     </context>
 </generatorConfiguration>

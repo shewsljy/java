@@ -68,7 +68,7 @@ public class StringUtils {
         for (int i = 0; i < aArray.length; i++) {
             System.out.println(aArray[i]);
         }
-        String bString = "28800";
+        String bString = "28800,";
         String[] bArray = bString.split(",");
         for (int i = 0; i < bArray.length; i++) {
             System.out.println(bArray[i]);
