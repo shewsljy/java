@@ -13,7 +13,7 @@ import javax.jws.WebService;
  * @version V1.0
  * @date 2020/03/15
  */
-@WebService(serviceName = "HelloSoapService",//与接口中暴露出来的name一致
+@WebService(serviceName = "helloSoapService",//与接口中暴露出来的name一致
         targetNamespace = "http://soap.service.springbootcxf.jiayuli.cn",// 命名空间,一般是接口的包名倒序
         endpointInterface = "cn.jiayuli.springbootcxf.service.soap.HelloSoapService"// 接口地址
 )
