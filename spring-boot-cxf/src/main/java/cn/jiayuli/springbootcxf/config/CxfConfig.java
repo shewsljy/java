@@ -1,7 +1,6 @@
 package cn.jiayuli.springbootcxf.config;
 
-import cn.jiayuli.springbootcxf.service.soap.DemoSoapService;
-import cn.jiayuli.springbootcxf.service.soap.HelloSoapService;
+import cn.jiayuli.springbootcxf.webservice.DemoWebService;
 import org.apache.cxf.Bus;
 import org.apache.cxf.bus.spring.SpringBus;
 import org.apache.cxf.jaxws.EndpointImpl;
@@ -25,10 +24,7 @@ import javax.xml.ws.Endpoint;
 public class CxfConfig {
 
     @Autowired
-    private HelloSoapService helloSoapService;
-
-    @Autowired
-    private DemoSoapService demoSoapService;
+    private DemoWebService demoWebService;
 
     @Bean(name = Bus.DEFAULT_BUS_ID)
     public SpringBus springBus() {
@@ -36,15 +32,8 @@ public class CxfConfig {
     }
 
     @Bean
-    public Endpoint hello() {
-        EndpointImpl endpoint = new EndpointImpl(springBus(),helloSoapService);
-        endpoint.publish("/hello");
-        return endpoint;
-    }
-
-    @Bean
     public Endpoint demo() {
-        EndpointImpl endpoint = new EndpointImpl(springBus(),demoSoapService);
+        EndpointImpl endpoint = new EndpointImpl(springBus(),demoWebService);
         endpoint.publish("/demo");
         return endpoint;
     }

@@ -1,14 +1,14 @@
 package cn.jiayuli.springbootcxf.service;
 
 /**
- * ClassName: HelloService <br>
+ * ClassName: DemoService <br>
  * Description: TODO
  *
  * @author jiayu
  * @version V1.0
  * @date 2020/03/15
  */
-public interface HelloService {
+public interface DemoService {
 
-    public String sayHello(String name);
+    public String printDemo(String name);
 }
