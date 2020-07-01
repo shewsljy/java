@@ -27,7 +27,7 @@
         <!-- javaparser-core 版本号 -->
         <javaparser-core.version>3.10.1</javaparser-core.version>
         <!-- mysql 版本号 -->
-        <mysql.version>8.0.13</mysql.version>
+        <mysql.version>8.0.16</mysql.version>
 
     </properties>
 
