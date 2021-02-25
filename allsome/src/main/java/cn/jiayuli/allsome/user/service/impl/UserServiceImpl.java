@@ -1,10 +1,10 @@
-package cn.jiayuli.allsome.user.service.imp;
+package cn.jiayuli.allsome.user.service.impl;
 
-import cn.jiayuli.allsome.user.dao.UserDao;
-import cn.jiayuli.allsome.user.dto.UserDto;
+import cn.jiayuli.allsome.user.repository.UserRepository;
+import cn.jiayuli.allsome.user.dto.UserDTO;
 import cn.jiayuli.allsome.user.entity.UserBean;
 import cn.jiayuli.allsome.user.service.UserService;
-import cn.jiayuli.allsome.user.vo.UserVo;
+import cn.jiayuli.allsome.user.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,25 +16,25 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class UserServiceImp implements UserService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     @Override
-    public void addUser(UserDto userDto) {
+    public void addUser(UserDTO userDto) {
         UserBean userBean = new UserBean();
         BeanUtils.copyProperties(userDto,userBean);
-        userDao.save(userBean);
+        userRepository.save(userBean);
     }
 
     @Override
-    public List<UserDto> queryUsers(UserVo userVo) {
-        List<UserDto> userDtos = new ArrayList<UserDto>();
-        List<UserBean> userBeans = userDao.findAll();
+    public List<UserDTO> queryUsers(UserVO userVo) {
+        List<UserDTO> userDtos = new ArrayList<UserDTO>();
+        List<UserBean> userBeans = userRepository.findAll();
         if (!CollectionUtils.isEmpty(userBeans)){
             for (UserBean userBean : userBeans) {
-                UserDto userDto = new UserDto();
+                UserDTO userDto = new UserDTO();
                 BeanUtils.copyProperties(userBean,userDto);
                 userDtos.add(userDto);
             }

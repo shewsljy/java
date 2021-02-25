@@ -1,10 +1,10 @@
 package cn.jiayuli.allsome;
 
-import cn.jiayuli.allsome.user.dto.UserDto;
+import cn.jiayuli.allsome.user.dto.UserDTO;
 import cn.jiayuli.allsome.user.entity.UserBean;
-import cn.jiayuli.allsome.user.dao.UserDao;
+import cn.jiayuli.allsome.user.repository.UserRepository;
 import cn.jiayuli.allsome.user.service.UserService;
-import cn.jiayuli.allsome.user.vo.UserVo;
+import cn.jiayuli.allsome.user.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
@@ -19,7 +19,7 @@ import java.util.List;
 class AllsomeApplicationTests {
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     @Autowired
     private UserService userService;
@@ -32,7 +32,7 @@ class AllsomeApplicationTests {
     @Transactional
     void repositoryTest() {
         log.info("----- save method test ------");
-        UserDto userDto = new UserDto();
+        UserDTO userDto = new UserDTO();
         userDto.setUserCode("0001");
         userDto.setUserName("user01");
         userDto.setUserPassword("userPassword01");
@@ -42,22 +42,34 @@ class AllsomeApplicationTests {
         log.debug("userBeanBefore : " + userBean.toString());
         BeanUtils.copyProperties(userDto,userBean);
         log.debug("userBeanCopy : " + userBean.toString());
-        userDao.save(userBean);
+        userRepository.save(userBean);
         log.debug("userDtoCopyAfter : " + userDto.toString());
         log.debug("userBeanCopyAfter : " + userBean.toString());
 
         log.info("----- findAll method test ------");
-        List<UserBean> users = userDao.findAll();
+        List<UserBean> users = userRepository.findAll();
         for (UserBean user:users) {
             log.info(user.toString());
         }
 
         log.info("----- count method test ------");
-        Long count = userDao.count();
+        Long count = userRepository.count();
         log.info("count :" + count.toString());
 
+        log.info("----- findByUserNameIgnoreCase method test ------");
+        UserBean bean = userRepository.findByUserNameIgnoreCase("USER01");
+        log.info("bean :" + bean.toString());
+
+        log.info("----- findByUserNameIgnoreCaseContaining method test ------");
+        UserBean contain = userRepository.findByUserNameIgnoreCaseContaining("USER01");
+        log.info("contain :" + contain.toString());
+
+        log.info("----- findByUserNameLikeQuery method test ------");
+        UserBean query = userRepository.findByUserNameLikeQuery("USER01");
+        log.info("query :" + query.toString());
+
         log.info("----- addUser method test ------");
-        UserDto userDto2 = new UserDto();
+        UserDTO userDto2 = new UserDTO();
         userDto2.setUserCode("0002");
         userDto2.setUserName("user02");
         userDto2.setUserPassword("userPassword02");
@@ -65,9 +77,9 @@ class AllsomeApplicationTests {
         userService.addUser(userDto2);
 
         log.info("----- queryUsers method test ------");
-        UserVo vo = new UserVo();
-        List<UserDto> userDtos = userService.queryUsers(vo);
-        for (UserDto dto:userDtos) {
+        UserVO vo = new UserVO();
+        List<UserDTO> userDtos = userService.queryUsers(vo);
+        for (UserDTO dto:userDtos) {
             log.info("dto test:" + dto.toString());
         }
 

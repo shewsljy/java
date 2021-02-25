@@ -1,11 +1,11 @@
 package cn.jiayuli.allsome.user.service;
 
-import cn.jiayuli.allsome.user.dto.UserDto;
-import cn.jiayuli.allsome.user.vo.UserVo;
+import cn.jiayuli.allsome.user.dto.UserDTO;
+import cn.jiayuli.allsome.user.vo.UserVO;
 
 import java.util.List;
 
 public interface UserService {
-    void addUser(UserDto userDto);
-    List<UserDto> queryUsers(UserVo userVo);
+    void addUser(UserDTO userDto);
+    List<UserDTO> queryUsers(UserVO userVo);
 }

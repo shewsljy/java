@@ -3,7 +3,7 @@ package cn.jiayuli.allsome.user.vo;
 import lombok.Data;
 
 @Data
-public class UserVo {
+public class UserVO {
     private Long id;
     private String userCode;
     private String userName;
