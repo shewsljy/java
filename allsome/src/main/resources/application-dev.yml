@@ -6,11 +6,6 @@ spring:
     username: allsome
     password: myallsome
 
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-
 # Logger Config
 logging:
   level:

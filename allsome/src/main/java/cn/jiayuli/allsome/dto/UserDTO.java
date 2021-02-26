@@ -1,4 +1,4 @@
-package cn.jiayuli.allsome.user.dto;
+package cn.jiayuli.allsome.dto;
 
 import lombok.Data;
 

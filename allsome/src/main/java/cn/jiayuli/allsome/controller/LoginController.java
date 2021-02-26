@@ -1,4 +1,4 @@
-package cn.jiayuli.allsome.login.controller;
+package cn.jiayuli.allsome.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package cn.jiayuli.allsome.user.vo;
+package cn.jiayuli.allsome.vo;
 
 import lombok.Data;
 

@@ -1,7 +1,7 @@
-package cn.jiayuli.allsome.user.service;
+package cn.jiayuli.allsome.service;
 
-import cn.jiayuli.allsome.user.dto.UserDTO;
-import cn.jiayuli.allsome.user.vo.UserVO;
+import cn.jiayuli.allsome.dto.UserDTO;
+import cn.jiayuli.allsome.vo.UserVO;
 
 import java.util.List;
 

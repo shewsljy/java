@@ -1,25 +1,27 @@
 package cn.jiayuli.allsome;
 
-import cn.jiayuli.allsome.user.dto.UserDTO;
-import cn.jiayuli.allsome.user.entity.UserBean;
-import cn.jiayuli.allsome.user.repository.UserRepository;
-import cn.jiayuli.allsome.user.service.UserService;
-import cn.jiayuli.allsome.user.vo.UserVO;
+import cn.jiayuli.allsome.entity.User;
+import cn.jiayuli.allsome.mapper.UserMapper;
+import cn.jiayuli.allsome.service.UserService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 @Slf4j
 @SpringBootTest
 class AllsomeApplicationTests {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserMapper userMapper;
 
     @Autowired
     private UserService userService;
@@ -30,59 +32,75 @@ class AllsomeApplicationTests {
 
     @Test
     @Transactional
-    void repositoryTest() {
-        log.info("----- save method test ------");
-        UserDTO userDto = new UserDTO();
-        userDto.setUserCode("0001");
-        userDto.setUserName("user01");
-        userDto.setUserPassword("userPassword01");
-        userDto.setUserAge(28);
-        UserBean userBean = new UserBean();
-        log.debug("userDtoBefore : " + userDto.toString());
-        log.debug("userBeanBefore : " + userBean.toString());
-        BeanUtils.copyProperties(userDto,userBean);
-        log.debug("userBeanCopy : " + userBean.toString());
-        userRepository.save(userBean);
-        log.debug("userDtoCopyAfter : " + userDto.toString());
-        log.debug("userBeanCopyAfter : " + userBean.toString());
+    void mapperTest() {
+        log.debug("------ deleteById method test ------");
+        Integer deleteByIdCount = userMapper.deleteById(1L);
+        log.debug("------ deleteByIdCount : " + deleteByIdCount.toString() + " ------");
 
-        log.info("----- findAll method test ------");
-        List<UserBean> users = userRepository.findAll();
-        for (UserBean user:users) {
-            log.info(user.toString());
+        log.debug("------ insert method test ------");
+        User user = new User();
+        user.setUserCode("code0001");
+        user.setUserName("user0001");
+        user.setUserPassword("password0001");
+        user.setUserAge(28);
+        Integer insertCount = userMapper.insert(user);
+        log.debug("------ insertCount : " + insertCount.toString() + " ------");
+
+        log.debug("------ selectCountPara method test ------");
+        QueryWrapper queryWrapperSelect = new QueryWrapper();
+        queryWrapperSelect.eq("user_code","code0001");
+        Integer selectCountPara = userMapper.selectCount(queryWrapperSelect);
+        log.debug("------ selectCountPara : " + selectCountPara.toString() + " ------");
+
+        log.debug("------ selectCount method test ------");
+        Integer selectCount = userMapper.selectCount(null);
+        log.debug("------ selectCount : " + selectCount.toString() + " ------");
+
+        log.debug("------ selectList method test ------");
+        List<User> users = userMapper.selectList(null);
+        for (User userSub : users) {
+            log.debug("------ userSub : " + userSub.toString() + " ------");
         }
 
-        log.info("----- count method test ------");
-        Long count = userRepository.count();
-        log.info("count :" + count.toString());
-
-        log.info("----- findByUserNameIgnoreCase method test ------");
-        UserBean bean = userRepository.findByUserNameIgnoreCase("USER01");
-        log.info("bean :" + bean.toString());
-
-        log.info("----- findByUserNameIgnoreCaseContaining method test ------");
-        UserBean contain = userRepository.findByUserNameIgnoreCaseContaining("USER01");
-        log.info("contain :" + contain.toString());
-
-        log.info("----- findByUserNameLikeQuery method test ------");
-        UserBean query = userRepository.findByUserNameLikeQuery("USER01");
-        log.info("query :" + query.toString());
-
-        log.info("----- addUser method test ------");
-        UserDTO userDto2 = new UserDTO();
-        userDto2.setUserCode("0002");
-        userDto2.setUserName("user02");
-        userDto2.setUserPassword("userPassword02");
-        userDto2.setUserAge(38);
-        userService.addUser(userDto2);
-
-        log.info("----- queryUsers method test ------");
-        UserVO vo = new UserVO();
-        List<UserDTO> userDtos = userService.queryUsers(vo);
-        for (UserDTO dto:userDtos) {
-            log.info("dto test:" + dto.toString());
+        log.debug("------ selectListPara method test ------");
+        QueryWrapper queryWrapperSel = new QueryWrapper();
+        queryWrapperSelect.eq("user_code","code0001");
+        List<User> userList = userMapper.selectList(queryWrapperSel);
+        for (User userSub : userList) {
+            log.debug("------ selectListPara userSub : " + userSub.toString() + " ------");
         }
 
+        log.debug("------ selectById method test ------");
+        User userById = userMapper.selectById(4L);
+        if (userById != null) {
+            log.debug("------ selectById : " + userById.toString() + " ------");
+        }else {
+            log.debug("------ selectById : " + "is null " + " ------");
+        }
+
+        log.debug("------ deleteBatchIds method test ------");
+        List<Long> ids = Arrays.asList(1L,2L,3L);
+        Integer deleteBatchIds = userMapper.deleteBatchIds(ids);
+        log.debug("------ deleteBatchIds : " + deleteBatchIds.toString() + " ------");
+
+        log.debug("------ deleteByMap method test ------");
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("user_code","code0002");
+        log.debug("------ map : " + map.toString() + " ------");
+        Integer deleteByMap = userMapper.deleteByMap(map);
+        log.debug("------ deleteByMap : " + deleteByMap.toString() + " ------");
+
+        log.debug("------ deletePara method test ------");
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("user_code","code0001");
+        Integer deletePara = userMapper.delete(queryWrapper);
+        log.debug("------ deletePara : " + deletePara.toString() + " ------");
+
+        log.debug("------ deleteNull method test ------");
+        Integer deleteNull = userMapper.delete(null);
+        log.debug("------ deleteNull : " + deleteNull.toString() + " ------");
+        //Wrapper
+        //userMapper
     }
 
 }

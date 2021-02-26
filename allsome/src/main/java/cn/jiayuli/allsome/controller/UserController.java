@@ -1,4 +1,4 @@
-package cn.jiayuli.allsome.user.controller;
+package cn.jiayuli.allsome.controller;
 
 import org.springframework.stereotype.Controller;
 
