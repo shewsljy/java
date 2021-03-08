@@ -6,6 +6,8 @@ import cn.jiayuli.allsome.vo.UserVO;
 import java.util.List;
 
 public interface UserService {
-    void addUser(UserDTO userDto);
+    UserDTO queryUserByCode(String code);
+    int addUser(UserDTO userDto);
     List<UserDTO> queryUsers(UserVO userVo);
+    boolean checkLoginNameUnique(String code);
 }
