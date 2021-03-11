@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface UserService {
     UserDTO queryUserByCode(String code);
-    int addUser(UserDTO userDto);
-    List<UserDTO> queryUsers(UserVO userVo);
-    boolean checkLoginNameUnique(String code);
+    int addUser(UserDTO userDTO);
+    int addUserBatch(List<UserDTO> userDTOList);
+    List<UserDTO> queryUsers(UserVO userVO);
+    boolean checkUserCodeUnique(String code);
+    boolean changePassword(String code,String password_old,String password_new);
 }

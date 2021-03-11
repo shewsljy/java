@@ -4,7 +4,6 @@ import cn.jiayuli.allsome.dto.UserDTO;
 import cn.jiayuli.allsome.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -18,10 +17,9 @@ public class UserController {
     public String getUser(@RequestParam("code")String code) {
 
         UserDTO userDTO = userService.queryUserByCode(code);
-        if (ObjectUtils.isEmpty(userDTO)) {
+        if (userDTO == null) {
             return "用户 : " + code + " 在系统不存在。";
         }
-//        userDTO.setPassword("");
         return "用户 : " + userDTO.toString();
     }
 
@@ -32,8 +30,8 @@ public class UserController {
                            @RequestParam("age")Integer age,
                            @RequestParam("password")String password) {
 
-        boolean isUnique = userService.checkLoginNameUnique(code);
-        if (!isUnique) {
+        boolean isUnique = userService.checkUserCodeUnique(code);
+        if (isUnique) {
             UserDTO userDTO = new UserDTO();
             userDTO.setName(name);
             userDTO.setCode(code);
@@ -43,9 +41,25 @@ public class UserController {
             if (count < 1) {
                 return "用户 : " + code + " 新增失败。";
             }
-            userDTO = userService.queryUserByCode(code);
-            return "新增用户 : " + userDTO.toString();
+            return "新增用户 : " + code + " 成功。";
         }
         return "用户 : " + code + " 在系统已存在。";
+    }
+
+    @PostMapping("/user/changePassword")
+    @ResponseBody
+    public String changePassword(@RequestParam("code")String code,
+                           @RequestParam("password_old")String password_old,
+                           @RequestParam("password_new")String password_new) {
+
+        boolean isUnique = userService.checkUserCodeUnique(code);
+        if (isUnique) {
+            return "用户 : " + code + " 在系统不存在。";
+        }
+        boolean isChange = userService.changePassword(code,password_old,password_new);
+        if (isChange) {
+            return "用户 : " + code + " 更新密码成功。";
+        }
+        return "用户 : " + code + " 更新密码失败。";
     }
 }

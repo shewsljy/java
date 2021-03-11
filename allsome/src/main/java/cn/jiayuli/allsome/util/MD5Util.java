@@ -5,12 +5,12 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 
 public class MD5Util {
-    public static String MD5Pwd(String username, String pwd) {
+    public static String MD5Pwd(String code, String pwd) {
         // 加密算法MD5
-        // salt盐 username + salt
+        // salt盐 code + salt
         // 迭代次数
         String md5Pwd = new SimpleHash(DigestConstant.ALGORITHM_NAME_MD5, pwd,
-                ByteSource.Util.bytes(username + DigestConstant.STRING_SALT), DigestConstant.HASH_ITERATIONS_1024).toHex();
+                ByteSource.Util.bytes(code + DigestConstant.STRING_SALT), DigestConstant.HASH_ITERATIONS_1024).toHex();
         return md5Pwd;
     }
 }

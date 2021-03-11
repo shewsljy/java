@@ -1,5 +1,6 @@
 package cn.jiayuli.allsome;
 
+import cn.jiayuli.allsome.dto.UserDTO;
 import cn.jiayuli.allsome.entity.User;
 import cn.jiayuli.allsome.mapper.UserMapper;
 import cn.jiayuli.allsome.service.UserService;
@@ -12,10 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Slf4j
@@ -33,6 +31,48 @@ class AllsomeApplicationTests {
     }
 
     @Test
+    @Transactional
+    void updateTest() {
+        log.debug("------ update method test ------");
+        UserDTO userDTO01 = new UserDTO();
+        userDTO01.setCode("code01");
+        userDTO01.setName("name01");
+        userDTO01.setAge(11);
+        userDTO01.setPassword("123456");
+        log.debug("------ userDTO01 = " + userDTO01.toString());
+        int count01 = userService.addUser(userDTO01);
+        log.debug("------ count01 = " + count01);
+        boolean isChange = userService.changePassword("code01","123456","654321");
+        log.debug("------ isChange = " + isChange);
+    }
+
+    @Test
+    @Transactional
+    void addUserBatchTest() {
+        log.debug("------ addUserBatch method test ------");
+        List<UserDTO> userDTOList = new ArrayList<UserDTO>();
+        UserDTO userDTO01 = new UserDTO();
+        userDTO01.setCode("code01");
+        userDTO01.setName("name01");
+        userDTO01.setAge(11);
+        userDTO01.setPassword("123456");
+        log.debug("------ userDTO01 = " + userDTO01.toString());
+        UserDTO userDTO02 = new UserDTO();
+        userDTO02.setCode("code02");
+        userDTO02.setName("name02");
+        userDTO02.setAge(12);
+        userDTO02.setPassword("123456");
+        log.debug("------ userDTO02 = " + userDTO02.toString());
+        userDTOList.add(userDTO01);
+        userDTOList.add(userDTO02);
+        userDTOList.add(null);
+        int count01 = userService.addUserBatch(userDTOList);
+        log.debug("------ count01 = " + count01);
+        int count02 = userService.addUserBatch(userDTOList);
+        log.debug("------ count02 = " + count02);
+    }
+
+    @Test
     void digestTest() {
         log.debug("------ md5DigestAsHex method test ------");
         String password = "123456";
@@ -47,14 +87,14 @@ class AllsomeApplicationTests {
     }
 
     @Test
-    void MD5UtilTest() {
+    void md5UtilTest() {
         log.debug("------ MD5Pwd method test ------");
         String username = "0001";
         log.debug("------ username = 0001 ------");
         String password = "123456";
         log.debug("------ password = 123456 ------");
-        String MD5Pwd = MD5Util.MD5Pwd(username,password);
-        log.debug("------ MD5Pwd = " + MD5Pwd + " ------");
+        String md5Pwd = MD5Util.MD5Pwd(username,password);
+        log.debug("------ md5Pwd = " + md5Pwd + " ------");
 
     }
 
@@ -128,8 +168,6 @@ class AllsomeApplicationTests {
         log.debug("------ deleteNull method test ------");
         Integer deleteNull = userMapper.delete(null);
         log.debug("------ deleteNull : " + deleteNull.toString() + " ------");
-        //Wrapper
-        //userMapper
     }
 
 }

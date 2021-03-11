@@ -12,7 +12,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,50 +28,80 @@ public class UserServiceImpl implements UserService {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("code",code);
         User user = userMapper.selectOne(queryWrapper);
-        if (!ObjectUtils.isEmpty(user)) {
-            UserDTO userDTO = new UserDTO();
-            BeanUtils.copyProperties(user, userDTO);
-            return userDTO;
+        if (user == null) {
+            return null;
         }
-        return null;
+        UserDTO userDTO = new UserDTO();
+        BeanUtils.copyProperties(user, userDTO);
+        return userDTO;
     }
 
     @Override
-    public int addUser(UserDTO userDto) {
-        String md5Pw = MD5Util.MD5Pwd(userDto.getCode(),userDto.getPassword());
-        userDto.setPassword(md5Pw);
+    public int addUser(UserDTO userDTO) {
         int count = 0;
-        if (!ObjectUtils.isEmpty(userDto)) {
+        if (userDTO != null && checkUserCodeUnique(userDTO.getCode())) {
             User userBean = new User();
-            BeanUtils.copyProperties(userDto, userBean);
+            BeanUtils.copyProperties(userDTO, userBean);
+            String md5Pw = MD5Util.MD5Pwd(userDTO.getCode(),userDTO.getPassword());
+            userBean.setPassword(md5Pw);
             count = userMapper.insert(userBean);
+            log.debug("------ userBean = " + userBean.toString());
         }
         return count;
     }
 
     @Override
-    public List<UserDTO> queryUsers(UserVO userVo) {
-        List<UserDTO> userDtos = new ArrayList<UserDTO>();
-        List<User> userBeans = new ArrayList<User>();
-        if (!CollectionUtils.isEmpty(userBeans)){
-            for (User userBean : userBeans) {
-                UserDTO userDto = new UserDTO();
-                if (!ObjectUtils.isEmpty(userBean)) {
-                    BeanUtils.copyProperties(userBean, userDto);
-                    userDtos.add(userDto);
-                }
+    public int addUserBatch(List<UserDTO> userDTOList) {
+        int count = 0;
+        if (!CollectionUtils.isEmpty(userDTOList)) {
+            for (UserDTO userDTO : userDTOList ) {
+                count = count + addUser(userDTO);
             }
         }
-        return userDtos;
+        return count;
     }
 
     @Override
-    public boolean checkLoginNameUnique(String code) {
-        UserDTO userDTO = queryUserByCode(code);
-        if (ObjectUtils.isEmpty(userDTO)) {
-            return false;
+    public List<UserDTO> queryUsers(UserVO userVO) {
+        List<UserDTO> userDTOList = new ArrayList<UserDTO>();
+        List<User> userBeans = new ArrayList<User>();
+        if (!CollectionUtils.isEmpty(userBeans)){
+            for (User userBean : userBeans) {
+                UserDTO userDTO = new UserDTO();
+                if (userBean != null) {
+                    BeanUtils.copyProperties(userBean, userDTO);
+                    userDTOList.add(userDTO);
+                }
+            }
         }
-        return true;
+        return userDTOList;
+    }
+
+    @Override
+    public boolean checkUserCodeUnique(String code) {
+        UserDTO userDTO = queryUserByCode(code);
+        return userDTO == null ? true : false;
+    }
+
+    @Override
+    public boolean changePassword(String code, String password_old, String password_new) {
+        boolean isChange = false;
+        UserDTO userDTO = queryUserByCode(code);
+        log.debug("------ userDTO = " + userDTO.toString());
+        String passwordDb = userDTO.getPassword();
+        String md5Pw = MD5Util.MD5Pwd(code,password_old);
+        log.debug("------ md5Pw = " + md5Pw);
+        if (passwordDb.equals(md5Pw)) {
+            String md5PwN = MD5Util.MD5Pwd(code,password_new);
+            log.debug("------ md5PwN = " + md5PwN);
+            User user = new User();
+            user.setId(userDTO.getId());
+            user.setPassword(md5PwN);
+            userMapper.updateById(user);
+            log.debug("------ user = " + user.toString());
+            isChange = true;
+        }
+        return isChange;
     }
 
 

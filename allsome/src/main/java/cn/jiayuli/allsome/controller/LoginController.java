@@ -22,12 +22,12 @@ public class LoginController {
 
     @PostMapping("/login")
     @ResponseBody
-    public String postLogin(@RequestParam("name")String name,
+    public String postLogin(@RequestParam("code")String code,
                             @RequestParam("password")String password) {
         // 从SecurityUtils里边创建一个 subject
         Subject subject = SecurityUtils.getSubject();
         // 在认证提交前准备 token（令牌）
-        UsernamePasswordToken token = new UsernamePasswordToken(name,password);
+        UsernamePasswordToken token = new UsernamePasswordToken(code,password);
         // 执行认证登陆
         try {
             subject.login(token);

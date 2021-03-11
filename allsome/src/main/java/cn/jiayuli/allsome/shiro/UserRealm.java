@@ -10,7 +10,6 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.DigestUtils;
 import org.springframework.util.ObjectUtils;
 
 @Slf4j
@@ -31,11 +30,11 @@ public class UserRealm extends AuthorizingRealm {
         if (ObjectUtils.isEmpty(object)) {
             return null;
         }
-        String name = (String) object;
+        String code = (String) object;
 //        String password = String.valueOf((char[])authenticationToken.getCredentials());
-        UserDTO userDTO = userService.queryUserByCode(name);
+        UserDTO userDTO = userService.queryUserByCode(code);
         if (ObjectUtils.isEmpty(userDTO)) {
-            throw new AccountException("用户不存在");
+            throw new AuthenticationException("用户不存在");
         }
 //        else if (!md5psw.equals(userDTO.getPassword())){
 //            throw new AccountException("密码不正确");
@@ -44,7 +43,7 @@ public class UserRealm extends AuthorizingRealm {
             String passwordInDb = userDTO.getPassword();
             //这里验证authenticationToken和simpleAuthenticationInfo的信息
             //SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(name, password, getName());
-            SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(name, passwordInDb, ByteSource.Util.bytes(name + DigestConstant.STRING_SALT), getName());
+            SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(code, passwordInDb, ByteSource.Util.bytes(code + DigestConstant.STRING_SALT), getName());
             return simpleAuthenticationInfo;
         }
     }
