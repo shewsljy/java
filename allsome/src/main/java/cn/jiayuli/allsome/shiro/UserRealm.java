@@ -10,12 +10,15 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.util.ObjectUtils;
 
 @Slf4j
 public class UserRealm extends AuthorizingRealm {
 
     @Autowired
+    @Lazy
+    //懒加载shiro自定义realm中依赖的service ，for example: not eligible for auto-proxying
     private UserService userService;
 
     @Override

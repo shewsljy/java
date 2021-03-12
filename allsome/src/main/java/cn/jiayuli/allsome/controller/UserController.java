@@ -1,27 +1,37 @@
 package cn.jiayuli.allsome.controller;
 
+import cn.jiayuli.allsome.annotation.ResponseResult;
 import cn.jiayuli.allsome.dto.UserDTO;
+import cn.jiayuli.allsome.exception.ApiException;
+import cn.jiayuli.allsome.result.ResultCode;
 import cn.jiayuli.allsome.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+@ResponseResult
 public class UserController {
 
     @Autowired
     private UserService userService;
 
     @GetMapping("/user")
-    @ResponseBody
-    public String getUser(@RequestParam("code")String code) {
-
+    public UserDTO getUser(@RequestParam("code")String code) {
         UserDTO userDTO = userService.queryUserByCode(code);
         if (userDTO == null) {
-            return "用户 : " + code + " 在系统不存在。";
+            throw new ApiException(ResultCode.USER_NOT_EXIST);
         }
-        return "用户 : " + userDTO.toString();
+        return userDTO;
     }
+
+//    @GetMapping("/user")
+//    public String getUser(@RequestParam("code")String code) {
+//        UserDTO userDTO = userService.queryUserByCode(code);
+//        if (userDTO == null) {
+//            throw new ApiException(ResultCode.USER_NOT_EXIST);
+//        }
+//        return userDTO.toString();
+//    }
 
     @PostMapping("/user")
     @ResponseBody
