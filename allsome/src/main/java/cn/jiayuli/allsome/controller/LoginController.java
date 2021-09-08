@@ -1,17 +1,17 @@
 package cn.jiayuli.allsome.controller;
 
+import cn.jiayuli.allsome.annotation.ResponseResult;
+import cn.jiayuli.allsome.result.Result;
+import cn.jiayuli.allsome.result.ResultCode;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
-@Controller
+@RestController
+@ResponseResult
 public class LoginController {
 
     @GetMapping("/login")
@@ -21,8 +21,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    @ResponseBody
-    public String postLogin(@RequestParam("code")String code,
+    public Result postLogin(@RequestParam("code")String code,
                             @RequestParam("password")String password) {
         // 从SecurityUtils里边创建一个 subject
         Subject subject = SecurityUtils.getSubject();
@@ -32,21 +31,21 @@ public class LoginController {
         try {
             subject.login(token);
         } catch (UnknownAccountException uae) {
-            return "未知账户";
+            return new Result(ResultCode.USER_NOT_EXIST);
         } catch (IncorrectCredentialsException ice) {
-            return "密码不正确";
+            return new Result(ResultCode.USER_LOGIN_PW_FAIL);
         } catch (LockedAccountException lae) {
-            return "账户已锁定";
+            return new Result(ResultCode.USER_LOCKED);
         } catch (ExcessiveAttemptsException eae) {
-            return "用户名或密码错误次数过多";
+            return new Result(ResultCode.USER_LOGIN_COUNT_FAIL);
         } catch (AuthenticationException ae) {
-            return "用户名或密码不正确！";
+            return new Result(ResultCode.USER_LOGIN_PW_FAIL);
         }
         if (subject.isAuthenticated()) {
-            return "登录成功";
+            return Result.success(code);
         } else {
             token.clear();
-            return "登录失败";
+            return new Result(ResultCode.USER_LOGIN_FAIL);
         }
     }
 }

@@ -3,6 +3,8 @@ package cn.jiayuli.allsome.shiro;
 import cn.jiayuli.allsome.constant.DigestConstant;
 import cn.jiayuli.allsome.dto.UserDTO;
 import cn.jiayuli.allsome.service.UserService;
+import cn.jiayuli.allsome.service.imp.UserServiceImpl;
+import cn.jiayuli.allsome.util.SpringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -18,7 +20,7 @@ public class UserRealm extends AuthorizingRealm {
 
     @Autowired
     @Lazy
-    //懒加载shiro自定义realm中依赖的service ，for example: not eligible for auto-proxying
+//    //懒加载 shiro自定义realm中依赖的service ，for example: not eligible for auto-proxying
     private UserService userService;
 
     @Override
@@ -35,6 +37,7 @@ public class UserRealm extends AuthorizingRealm {
         }
         String code = (String) object;
 //        String password = String.valueOf((char[])authenticationToken.getCredentials());
+//        UserServiceImpl userService = SpringUtil.getBean("userServiceImpl");
         UserDTO userDTO = userService.queryUserByCode(code);
         if (ObjectUtils.isEmpty(userDTO)) {
             throw new AuthenticationException("用户不存在");

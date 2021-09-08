@@ -13,10 +13,13 @@ import org.springframework.util.Assert;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= CDPlayerConfig.class)
 public class CDPlayerTest {
+
     @Autowired
     private MediaPlayer player;
+
     @Autowired
     private CompactDisc cd;
+
     @Test
     public void cdShouldNotBeanNull() {
         Assert.notNull(cd,"Java 实现 Spring 自动创建，扫描 bean 失败!");

@@ -1,12 +1,24 @@
 # DataSource Config
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/allsome?useUnicode=true&useSSL=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
-    username: allsome
-    password: myallsome
+    dynamic:
+      primary: mysql #设置默认的数据源或者数据源组,默认值即为master
+      strict: false #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      datasource:
+        mysql:
+          url: jdbc:mysql://localhost:3306/allsome?useUnicode=true&useSSL=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+          username: allsome
+          password: myallsome
+          driver-class-name: com.mysql.cj.jdbc.Driver # 3.2.0开始支持SPI可省略此配置
+        oracle:
+          url: jdbc:oracle:thin:@localhost:1521:localdata
+          username: localspd
+          password: mylocalspd
+          driver-class-name: oracle.jdbc.OracleDriver
 
 # Logger Config
 logging:
   level:
+    root : info
     cn.jiayuli.allsome: debug
+    com.baomidou.dynamic: debug

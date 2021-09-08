@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.3</version>
+        <version>2.4.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>cn.jiayuli</groupId>
@@ -18,13 +18,15 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
+        <dynamic-datasource.version>3.4.1</dynamic-datasource.version>
+        <orai18n.version>12.1.0.2.0</orai18n.version>
         <shiro.version>1.7.1</shiro.version>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-thymeleaf</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -54,6 +56,22 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+            <version>${dynamic-datasource.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.oracle.ojdbc</groupId>
+            <artifactId>ojdbc8</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- 用于解决： org.springframework.jdbc.UncategorizedSQLException; Cause: java.sql.SQLException: 不支持的字符集 (在类路径中添加 orai18n.jar): ZHS16GBK -->
+        <dependency>
+            <groupId>cn.easyproject</groupId>
+            <artifactId>orai18n</artifactId>
+            <version>${orai18n.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.shiro</groupId>

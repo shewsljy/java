@@ -1,9 +1,11 @@
 package cn.jiayuli.allsome.exception;
 
 import cn.jiayuli.allsome.result.ResultCode;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class ApiException extends RuntimeException{
     /**
      * 错误状态码
@@ -13,9 +15,6 @@ public class ApiException extends RuntimeException{
      * 响应信息，用来说明响应情况
      */
     private String message;
-    /**
-     * 响应的具体数据
-     */
 
     public ApiException() {
         super();

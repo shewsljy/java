@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int addUser(UserDTO userDTO) {
+    public Integer addUser(UserDTO userDTO) {
         int count = 0;
         if (userDTO != null && checkUserCodeUnique(userDTO.getCode())) {
             User userBean = new User();
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int addUserBatch(List<UserDTO> userDTOList) {
+    public Integer addUserBatch(List<UserDTO> userDTOList) {
         int count = 0;
         if (!CollectionUtils.isEmpty(userDTOList)) {
             for (UserDTO userDTO : userDTOList ) {
@@ -78,13 +78,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean checkUserCodeUnique(String code) {
+    public Boolean checkUserCodeUnique(String code) {
         UserDTO userDTO = queryUserByCode(code);
         return userDTO == null ? true : false;
     }
 
     @Override
-    public boolean changePassword(String code, String password_old, String password_new) {
+    public Boolean changePassword(String code, String password_old, String password_new) {
         boolean isChange = false;
         UserDTO userDTO = queryUserByCode(code);
         log.debug("------ userDTO = " + userDTO.toString());

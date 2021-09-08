@@ -13,8 +13,9 @@ import org.springframework.context.annotation.Configuration;
 public class CDPlayerConfig {
     //手动 @Bean告诉spring这个方法将会返回一个对象，该对象要注册为spring应用上下文中地bean
     @Bean
-    public CompactDisc sgtPeppers() {
-        return new SgtPeppers();
+    public CompactDisc compactDisc() {
+        SgtPeppers sgtPeppers = new SgtPeppers();
+        return sgtPeppers;
     }
 //    //手动 @Bean告诉spring这个方法将会返回一个对象，该对象要注册为spring应用上下文中地bean
 //    @Bean
@@ -24,6 +25,14 @@ public class CDPlayerConfig {
     //手动 @Bean告诉spring这个方法将会返回一个对象，该对象要注册为spring应用上下文中地bean
     @Bean
     public CDPlayer cdPlayer(CompactDisc compactDisc) {
-        return new CDPlayer(compactDisc);
+        CDPlayer cdPlayer = new CDPlayer(compactDisc);
+        return cdPlayer;
     }
+
+    //手动 @Bean告诉spring这个方法将会返回一个对象，该对象要注册为spring应用上下文中地bean
+//    @Bean
+//    public CDPlayer cdPlayer() {
+//        CDPlayer cdPlayer = new CDPlayer(compactDisc());
+//        return cdPlayer;
+//    }
 }

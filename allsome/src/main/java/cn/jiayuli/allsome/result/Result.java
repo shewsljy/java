@@ -46,4 +46,15 @@ public class Result<T> {
         return result;
     }
 
+    public static Result fail() {
+        Result result = new Result(ResultCode.FAILED);
+        return result;
+    }
+
+    public static Result fail(String message) {
+        Result result = new Result(ResultCode.FAILED);
+        result.setMessage(message);
+        return result;
+    }
+
 }

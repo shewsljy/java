@@ -1,0 +1,27 @@
+# DataSource Config
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/allsome?useUnicode=true&useSSL=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+#    username: allsome
+#    password: myallsome
+
+# Logger Config
+logging:
+  level:
+    cn.jiayuli.wechat: info
+
+# Server Config
+server:
+  port: 80
+
+# Wechat Config
+wechat:
+  #公众号AppID
+  appID: wx248e6fb33d9cfb94
+  #公众平台配置的APPSecret
+  secret: e4fb219d1e02bff4545b777c29a39007
+  #公众平台配置的Token
+  token: token_123
+  #公众平台配置的EncodingAESKey
+  encodingAESKey: 3CeMPdyUqpSk7tprruD56BXDPAWK4ITT9RViJuOmgon
