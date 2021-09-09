@@ -21,6 +21,7 @@
         <dynamic-datasource.version>3.4.1</dynamic-datasource.version>
         <orai18n.version>12.1.0.2.0</orai18n.version>
         <shiro.version>1.7.1</shiro.version>
+        <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
     </properties>
     <dependencies>
 <!--        <dependency>-->
@@ -77,6 +78,18 @@
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring-boot-web-starter</artifactId>
             <version>${shiro.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox-swagger2.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox-swagger2.version}</version>
         </dependency>
     </dependencies>
 
