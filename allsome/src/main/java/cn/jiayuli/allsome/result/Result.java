@@ -1,5 +1,6 @@
 package cn.jiayuli.allsome.result;
 
+import cn.jiayuli.allsome.exception.ApiException;
 import lombok.Data;
 
 @Data
@@ -54,6 +55,13 @@ public class Result<T> {
     public static Result fail(String message) {
         Result result = new Result(ResultCode.FAILED);
         result.setMessage(message);
+        return result;
+    }
+
+    public static Result fail(ApiException apiException) {
+        Result result = new Result();
+        result.setCode(apiException.getCode());
+        result.setMessage(apiException.getMessage());
         return result;
     }
 

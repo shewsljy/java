@@ -8,19 +8,22 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Slf4j
 @RestController
 @ResponseResult
+@RequestMapping("/login")
+@ApiIgnore
 public class LoginController {
 
-    @GetMapping("/login")
+    @GetMapping()
     public String getLogin(){
         log.info("login!");
         return "login/login";
     }
 
-    @PostMapping("/login")
+    @PostMapping()
     public Result postLogin(@RequestParam("code")String code,
                             @RequestParam("password")String password) {
         // 从SecurityUtils里边创建一个 subject

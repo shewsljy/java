@@ -84,15 +84,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean changePassword(String code, String password_old, String password_new) {
+    public Boolean changePassword(String code, String passwordOld, String passwordNew) {
         boolean isChange = false;
         UserDTO userDTO = queryUserByCode(code);
         log.debug("------ userDTO = " + userDTO.toString());
         String passwordDb = userDTO.getPassword();
-        String md5Pw = MD5Util.MD5Pwd(code,password_old);
+        String md5Pw = MD5Util.MD5Pwd(code,passwordOld);
         log.debug("------ md5Pw = " + md5Pw);
         if (passwordDb.equals(md5Pw)) {
-            String md5PwN = MD5Util.MD5Pwd(code,password_new);
+            String md5PwN = MD5Util.MD5Pwd(code,passwordNew);
             log.debug("------ md5PwN = " + md5PwN);
             User user = new User();
             user.setId(userDTO.getId());

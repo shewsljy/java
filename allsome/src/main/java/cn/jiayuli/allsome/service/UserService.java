@@ -11,5 +11,5 @@ public interface UserService {
     Integer addUserBatch(List<UserDTO> userDTOList);
     List<UserDTO> queryUsers(UserVO userVO);
     Boolean checkUserCodeUnique(String code);
-    Boolean changePassword(String code,String password_old,String password_new);
+    Boolean changePassword(String code,String passwordOld,String passwordNew);
 }

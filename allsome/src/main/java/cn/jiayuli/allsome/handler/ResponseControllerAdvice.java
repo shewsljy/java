@@ -3,7 +3,6 @@ package cn.jiayuli.allsome.handler;
 import cn.jiayuli.allsome.annotation.ResponseResult;
 import cn.jiayuli.allsome.constant.DigestConstant;
 import cn.jiayuli.allsome.result.Result;
-import cn.jiayuli.allsome.result.ResultError;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -33,15 +32,9 @@ public class ResponseControllerAdvice implements ResponseBodyAdvice {
     // 对返回值做包装处理，如果属于异常结果，则需要再包装
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        if (o instanceof ResultError) {
-            return (ResultError) o;
-        } else if (o instanceof Result) {
+        if (o instanceof Result) {
             return (Result) o;
         }
-        // 处理返回类型为String时，Spring框架使用的类型转换器为StringHttpMessageConverter，会报错
-//        else if (o instanceof String) {
-//            return o;
-//        }
         return Result.success(o);
     }
 }

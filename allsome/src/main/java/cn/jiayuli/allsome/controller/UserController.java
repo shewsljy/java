@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @ResponseResult
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -20,30 +21,22 @@ public class UserController {
     @Autowired
     private LoginService loginService;
 
-    @GetMapping("/user")
-    public UserDTO getUser(@RequestParam("code")String code) {
+    @GetMapping()
+    public Result getUser(@RequestParam("code")String code) {
         UserDTO userDTO = userService.queryUserByCode(code);
         if (userDTO == null) {
             throw new ApiException(ResultCode.USER_NOT_EXIST);
         }
-        return userDTO;
+        return Result.success(userDTO);
     }
 
-//    @GetMapping("/user/test")
-//    public String getUserTest(@RequestParam("code")String code) {
-//        UserDTO userDTO = userService.queryUserByCode(code);
-//        if (userDTO == null) {
-//            throw new ApiException(ResultCode.USER_NOT_EXIST);
-//        }
-//        return userDTO.toString();
-//    }
     @GetMapping("/goods/count")
     public Result getGoodsCount() {
         Integer count = loginService.goodsCount();
         return Result.success(count);
     }
 
-    @PostMapping("/user")
+    @PostMapping()
     public Result postUser(@RequestParam("name")String name,
                            @RequestParam("code")String code,
                            @RequestParam("age")Integer age,
@@ -65,7 +58,7 @@ public class UserController {
         return new Result(ResultCode.USER_EXIST);
     }
 
-    @PostMapping("/user/changePassword")
+    @PostMapping("/changePassword")
     public Result changePassword(@RequestParam("code")String code,
                            @RequestParam("password_old")String password_old,
                            @RequestParam("password_new")String password_new) {
