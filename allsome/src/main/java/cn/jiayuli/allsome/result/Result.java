@@ -1,7 +1,12 @@
 package cn.jiayuli.allsome.result;
 
+import cn.jiayuli.allsome.constant.DateTimeFormatConstant;
 import cn.jiayuli.allsome.exception.ApiException;
+import cn.jiayuli.allsome.util.DateTimeUtil;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Data
 public class Result<T> {
@@ -17,6 +22,9 @@ public class Result<T> {
      * 响应的时间戳
      */
     private Long timestamp;
+
+    @JsonFormat(pattern = DateTimeFormatConstant.DEFAULT_DATE_TIME_FORMAT,timezone = DateTimeFormatConstant.DEFAULT_TIME_ZONE_GMT8)
+    private LocalDateTime datetime;
     /**
      * 响应的具体数据
      */
@@ -24,6 +32,7 @@ public class Result<T> {
 
     public Result() {
         this.timestamp = System.currentTimeMillis();
+        this.datetime = DateTimeUtil.getDataTimeOfTimestamp(timestamp);
     }
 
     public Result(ResultCode resultCode) {

@@ -46,7 +46,7 @@ public class UserRealm extends AuthorizingRealm {
 //            throw new AccountException("密码不正确");
 //        }
         else {
-            String passwordInDb = userDTO.getPassword();
+            String passwordInDb = userDTO.getUserPassWord();
             //这里验证authenticationToken和simpleAuthenticationInfo的信息
             //SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(name, password, getName());
             SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(code, passwordInDb, ByteSource.Util.bytes(code + DigestConstant.STRING_SALT), getName());

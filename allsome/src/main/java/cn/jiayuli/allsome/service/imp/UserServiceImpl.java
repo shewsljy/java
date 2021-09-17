@@ -7,6 +7,7 @@ import cn.jiayuli.allsome.service.UserService;
 import cn.jiayuli.allsome.util.MD5Util;
 import cn.jiayuli.allsome.vo.UserVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Autowired
     private UserMapper userMapper;
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO queryUserByCode(String code) {
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("code",code);
+        queryWrapper.eq("user_code",code);
         User user = userMapper.selectOne(queryWrapper);
         if (user == null) {
             return null;
@@ -39,11 +40,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer addUser(UserDTO userDTO) {
         int count = 0;
-        if (userDTO != null && checkUserCodeUnique(userDTO.getCode())) {
+        if (userDTO != null && checkUserCodeUnique(userDTO.getUserCode())) {
             User userBean = new User();
             BeanUtils.copyProperties(userDTO, userBean);
-            String md5Pw = MD5Util.MD5Pwd(userDTO.getCode(),userDTO.getPassword());
-            userBean.setPassword(md5Pw);
+            String md5Pw = MD5Util.MD5Pwd(userDTO.getUserCode(),userDTO.getUserPassWord());
+            userBean.setUserPassWord(md5Pw);
             count = userMapper.insert(userBean);
             log.debug("------ userBean = " + userBean.toString());
         }
@@ -88,15 +89,15 @@ public class UserServiceImpl implements UserService {
         boolean isChange = false;
         UserDTO userDTO = queryUserByCode(code);
         log.debug("------ userDTO = " + userDTO.toString());
-        String passwordDb = userDTO.getPassword();
+        String passwordDb = userDTO.getUserPassWord();
         String md5Pw = MD5Util.MD5Pwd(code,passwordOld);
         log.debug("------ md5Pw = " + md5Pw);
         if (passwordDb.equals(md5Pw)) {
             String md5PwN = MD5Util.MD5Pwd(code,passwordNew);
             log.debug("------ md5PwN = " + md5PwN);
             User user = new User();
-            user.setId(userDTO.getId());
-            user.setPassword(md5PwN);
+            user.setUserId(userDTO.getUserId());
+            user.setUserPassWord(md5PwN);
             userMapper.updateById(user);
             log.debug("------ user = " + user.toString());
             isChange = true;

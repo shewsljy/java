@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jiayuli.allsome.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="cn.jiayuli.allsome.entity.User">
+            <id property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="userCode" column="user_code" jdbcType="VARCHAR"/>
+            <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+            <result property="userAge" column="user_age" jdbcType="INTEGER"/>
+            <result property="userPassWord" column="user_pass_word" jdbcType="VARCHAR"/>
+            <result property="userStatus" column="user_status" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="createUserCode" column="create_user_code" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="updateUserCode" column="update_user_code" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_id,user_code,user_name,
+        user_age,user_pass_word,user_status,
+        create_time,create_user_code,update_time,
+        update_user_code
+    </sql>
+</mapper>

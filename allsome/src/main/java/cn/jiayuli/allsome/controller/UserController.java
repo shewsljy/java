@@ -30,9 +30,9 @@ public class UserController {
         return Result.success(userDTO);
     }
 
-    @GetMapping("/goods/count")
-    public Result getGoodsCount() {
-        Integer count = loginService.goodsCount();
+    @GetMapping("/count")
+    public Result getUserCount() {
+        Integer count = loginService.userCount();
         return Result.success(count);
     }
 
@@ -45,10 +45,10 @@ public class UserController {
         boolean isUnique = userService.checkUserCodeUnique(code);
         if (isUnique) {
             UserDTO userDTO = new UserDTO();
-            userDTO.setName(name);
-            userDTO.setCode(code);
-            userDTO.setAge(age);
-            userDTO.setPassword(password);
+            userDTO.setUserName(name);
+            userDTO.setUserCode(code);
+            userDTO.setUserAge(age);
+            userDTO.setUserPassWord(password);
             int count = userService.addUser(userDTO);
             if (count < 1) {
                 return new Result(ResultCode.USER_CREATE_FAIL);

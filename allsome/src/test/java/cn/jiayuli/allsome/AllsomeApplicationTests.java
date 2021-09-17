@@ -4,6 +4,7 @@ import cn.jiayuli.allsome.dto.UserDTO;
 import cn.jiayuli.allsome.entity.User;
 import cn.jiayuli.allsome.mapper.UserMapper;
 import cn.jiayuli.allsome.service.UserService;
+import cn.jiayuli.allsome.util.DateTimeUtil;
 import cn.jiayuli.allsome.util.MD5Util;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -35,10 +37,10 @@ class AllsomeApplicationTests {
     void updateTest() {
         log.debug("------ update method test ------");
         UserDTO userDTO01 = new UserDTO();
-        userDTO01.setCode("code01");
-        userDTO01.setName("name01");
-        userDTO01.setAge(11);
-        userDTO01.setPassword("123456");
+        userDTO01.setUserCode("code01");
+        userDTO01.setUserName("name01");
+        userDTO01.setUserAge(11);
+        userDTO01.setUserPassWord("123456");
         log.debug("------ userDTO01 = " + userDTO01.toString());
         int count01 = userService.addUser(userDTO01);
         log.debug("------ count01 = " + count01);
@@ -52,16 +54,16 @@ class AllsomeApplicationTests {
         log.debug("------ addUserBatch method test ------");
         List<UserDTO> userDTOList = new ArrayList<UserDTO>();
         UserDTO userDTO01 = new UserDTO();
-        userDTO01.setCode("code01");
-        userDTO01.setName("name01");
-        userDTO01.setAge(11);
-        userDTO01.setPassword("123456");
+        userDTO01.setUserCode("code01");
+        userDTO01.setUserName("name01");
+        userDTO01.setUserAge(11);
+        userDTO01.setUserPassWord("123456");
         log.debug("------ userDTO01 = " + userDTO01.toString());
         UserDTO userDTO02 = new UserDTO();
-        userDTO02.setCode("code02");
-        userDTO02.setName("name02");
-        userDTO02.setAge(12);
-        userDTO02.setPassword("123456");
+        userDTO02.setUserCode("code02");
+        userDTO02.setUserName("name02");
+        userDTO02.setUserAge(12);
+        userDTO02.setUserPassWord("123456");
         log.debug("------ userDTO02 = " + userDTO02.toString());
         userDTOList.add(userDTO01);
         userDTOList.add(userDTO02);
@@ -108,16 +110,16 @@ class AllsomeApplicationTests {
         log.debug("------ insert method test ------");
         log.debug("------ password maybe is e10adc3949ba59abbe56e057f20f883e ------");
         User user = new User();
-        user.setCode("code0001");
-        user.setName("user0001");
-        user.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
-        user.setAge(28);
+        user.setUserCode("code0001");
+        user.setUserName("user0001");
+        user.setUserPassWord(DigestUtils.md5DigestAsHex("123456".getBytes()));
+        user.setUserAge(28);
         Integer insertCount = userMapper.insert(user);
         log.debug("------ insertCount : " + insertCount.toString() + " ------");
 
         log.debug("------ selectCountPara method test ------");
         QueryWrapper queryWrapperSelect = new QueryWrapper();
-        queryWrapperSelect.eq("code","code0001");
+        queryWrapperSelect.eq("user_code","code0001");
         Integer selectCountPara = userMapper.selectCount(queryWrapperSelect);
         log.debug("------ selectCountPara : " + selectCountPara.toString() + " ------");
 
@@ -133,7 +135,7 @@ class AllsomeApplicationTests {
 
         log.debug("------ selectListPara method test ------");
         QueryWrapper queryWrapperSel = new QueryWrapper();
-        queryWrapperSelect.eq("code","code0001");
+        queryWrapperSel.eq("user_code","code0001");
         List<User> userList = userMapper.selectList(queryWrapperSel);
         for (User userSub : userList) {
             log.debug("------ selectListPara userSub : " + userSub.toString() + " ------");
@@ -154,20 +156,36 @@ class AllsomeApplicationTests {
 
         log.debug("------ deleteByMap method test ------");
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("code","code0002");
+        map.put("user_code","code0002");
         log.debug("------ map : " + map.toString() + " ------");
         Integer deleteByMap = userMapper.deleteByMap(map);
         log.debug("------ deleteByMap : " + deleteByMap.toString() + " ------");
 
         log.debug("------ deletePara method test ------");
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("code","code0001");
+        queryWrapper.eq("user_code","code0001");
         Integer deletePara = userMapper.delete(queryWrapper);
         log.debug("------ deletePara : " + deletePara.toString() + " ------");
 
         log.debug("------ deleteNull method test ------");
         Integer deleteNull = userMapper.delete(null);
         log.debug("------ deleteNull : " + deleteNull.toString() + " ------");
+    }
+
+    @Test
+    void localDateTimeTest() {
+        Long timestamp = 1631867648334L;
+        Long timestamp2 = 1631867648335L;
+        LocalDateTime localDateTime = DateTimeUtil.getDataTimeOfTimestamp(timestamp);
+        LocalDateTime localDateTime2 = DateTimeUtil.getDataTimeOfTimestamp(timestamp2);
+        log.debug("--------timestamp-------");
+        log.debug("timestamp : " + timestamp + "");
+        log.debug("--------localDateTime-------");
+        log.debug("localDateTime : " + localDateTime + "");
+        log.debug("--------timestamp2-------");
+        log.debug("timestamp2 : " + timestamp2 + "");
+        log.debug("--------localDateTime2-------");
+        log.debug("localDateTime2 : " + localDateTime2 + "");
     }
 
 }

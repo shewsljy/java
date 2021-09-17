@@ -1,11 +1,13 @@
 package cn.jiayuli.allsome.service;
 
 import cn.jiayuli.allsome.dto.UserDTO;
+import cn.jiayuli.allsome.entity.User;
 import cn.jiayuli.allsome.vo.UserVO;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserService extends IService<User> {
     UserDTO queryUserByCode(String code);
     Integer addUser(UserDTO userDTO);
     Integer addUserBatch(List<UserDTO> userDTOList);

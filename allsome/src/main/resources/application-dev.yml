@@ -10,11 +10,11 @@ spring:
           username: allsome
           password: myallsome
           driver-class-name: com.mysql.cj.jdbc.Driver # 3.2.0开始支持SPI可省略此配置
-        oracle:
-          url: jdbc:oracle:thin:@localhost:1521:localdata
-          username: localspd
-          password: mylocalspd
-          driver-class-name: oracle.jdbc.OracleDriver
+#        oracle:
+#          url: jdbc:oracle:thin:@localhost:1521:localdata
+#          username: localspd
+#          password: mylocalspd
+#          driver-class-name: oracle.jdbc.OracleDriver
 
 # Logger Config
 logging:
