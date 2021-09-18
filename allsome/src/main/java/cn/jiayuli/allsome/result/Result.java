@@ -23,7 +23,6 @@ public class Result<T> {
      */
     private Long timestamp;
 
-    @JsonFormat(pattern = DateTimeFormatConstant.DEFAULT_DATE_TIME_FORMAT,timezone = DateTimeFormatConstant.DEFAULT_TIME_ZONE_GMT8)
     private LocalDateTime datetime;
     /**
      * 响应的具体数据
