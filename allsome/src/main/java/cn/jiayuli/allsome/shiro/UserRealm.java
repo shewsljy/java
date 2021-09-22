@@ -3,8 +3,6 @@ package cn.jiayuli.allsome.shiro;
 import cn.jiayuli.allsome.constant.DigestConstant;
 import cn.jiayuli.allsome.dto.UserDTO;
 import cn.jiayuli.allsome.service.UserService;
-import cn.jiayuli.allsome.service.imp.UserServiceImpl;
-import cn.jiayuli.allsome.util.SpringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -46,7 +44,7 @@ public class UserRealm extends AuthorizingRealm {
 //            throw new AccountException("密码不正确");
 //        }
         else {
-            String passwordInDb = userDTO.getUserPassWord();
+            String passwordInDb = userDTO.getUserPasswd();
             //这里验证authenticationToken和simpleAuthenticationInfo的信息
             //SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(name, password, getName());
             SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(code, passwordInDb, ByteSource.Util.bytes(code + DigestConstant.STRING_SALT), getName());

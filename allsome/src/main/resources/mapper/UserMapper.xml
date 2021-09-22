@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.jiayuli.allsome.mapper.UserMapper">
 
+    <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.jiayuli.allsome.entity.User">
-            <id property="userId" column="user_id" jdbcType="BIGINT"/>
-            <result property="userCode" column="user_code" jdbcType="VARCHAR"/>
-            <result property="userName" column="user_name" jdbcType="VARCHAR"/>
-            <result property="userAge" column="user_age" jdbcType="INTEGER"/>
-            <result property="userPassWord" column="user_pass_word" jdbcType="VARCHAR"/>
-            <result property="userStatus" column="user_status" jdbcType="INTEGER"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="createUserCode" column="create_user_code" jdbcType="VARCHAR"/>
-            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-            <result property="updateUserCode" column="update_user_code" jdbcType="VARCHAR"/>
+        <id column="user_id" property="userId" />
+        <result column="user_code" property="userCode" />
+        <result column="user_name" property="userName" />
+        <result column="user_age" property="userAge" />
+        <result column="user_passwd" property="userPasswd" />
+        <result column="user_status" property="userStatus" />
+        <result column="create_time" property="createTime" />
+        <result column="create_by" property="createBy" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_by" property="updateBy" />
     </resultMap>
 
+    <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        user_id,user_code,user_name,
-        user_age,user_pass_word,user_status,
-        create_time,create_user_code,update_time,
-        update_user_code
+        user_id, user_code, user_name, user_age, user_passwd, user_status, create_time, create_by, update_time, update_by
     </sql>
+
 </mapper>

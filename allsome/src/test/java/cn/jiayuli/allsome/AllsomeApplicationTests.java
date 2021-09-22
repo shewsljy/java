@@ -40,7 +40,7 @@ class AllsomeApplicationTests {
         userDTO01.setUserCode("code01");
         userDTO01.setUserName("name01");
         userDTO01.setUserAge(11);
-        userDTO01.setUserPassWord("123456");
+        userDTO01.setUserPasswd("123456");
         log.debug("------ userDTO01 = " + userDTO01.toString());
         int count01 = userService.addUser(userDTO01);
         log.debug("------ count01 = " + count01);
@@ -57,13 +57,13 @@ class AllsomeApplicationTests {
         userDTO01.setUserCode("code01");
         userDTO01.setUserName("name01");
         userDTO01.setUserAge(11);
-        userDTO01.setUserPassWord("123456");
+        userDTO01.setUserPasswd("123456");
         log.debug("------ userDTO01 = " + userDTO01.toString());
         UserDTO userDTO02 = new UserDTO();
         userDTO02.setUserCode("code02");
         userDTO02.setUserName("name02");
         userDTO02.setUserAge(12);
-        userDTO02.setUserPassWord("123456");
+        userDTO02.setUserPasswd("123456");
         log.debug("------ userDTO02 = " + userDTO02.toString());
         userDTOList.add(userDTO01);
         userDTOList.add(userDTO02);
@@ -112,7 +112,7 @@ class AllsomeApplicationTests {
         User user = new User();
         user.setUserCode("code0001");
         user.setUserName("user0001");
-        user.setUserPassWord(DigestUtils.md5DigestAsHex("123456".getBytes()));
+        user.setUserPasswd(DigestUtils.md5DigestAsHex("123456".getBytes()));
         user.setUserAge(28);
         Integer insertCount = userMapper.insert(user);
         log.debug("------ insertCount : " + insertCount.toString() + " ------");

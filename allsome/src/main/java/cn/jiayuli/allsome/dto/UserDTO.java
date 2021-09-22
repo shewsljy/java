@@ -3,10 +3,12 @@ package cn.jiayuli.allsome.dto;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 public class UserDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     /**
      * 用户ID
      */
@@ -30,7 +32,7 @@ public class UserDTO implements Serializable {
     /**
      * 用户密码
      */
-    private String userPassWord;
+    private String userPasswd;
 
     /**
      * 用户状态（0：正常；1：停用）
@@ -40,22 +42,20 @@ public class UserDTO implements Serializable {
     /**
      * 创建时间
      */
-    private Date createTime;
+    private LocalDateTime createTime;
 
     /**
      * 创建人编码
      */
-    private String createUserCode;
+    private String createBy;
 
     /**
      * 更新时间
      */
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     /**
      * 更新人编码
      */
-    private String updateUserCode;
-
-    private static final long serialVersionUID = 1L;
+    private String updateBy;
 }

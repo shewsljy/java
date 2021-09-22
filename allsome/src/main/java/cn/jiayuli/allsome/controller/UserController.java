@@ -48,7 +48,7 @@ public class UserController {
             userDTO.setUserName(name);
             userDTO.setUserCode(code);
             userDTO.setUserAge(age);
-            userDTO.setUserPassWord(password);
+            userDTO.setUserPasswd(password);
             int count = userService.addUser(userDTO);
             if (count < 1) {
                 return new Result(ResultCode.USER_CREATE_FAIL);

@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
-public interface UserService extends IService<User> {
+public interface UserService {
     UserDTO queryUserByCode(String code);
     Integer addUser(UserDTO userDTO);
     Integer addUserBatch(List<UserDTO> userDTOList);

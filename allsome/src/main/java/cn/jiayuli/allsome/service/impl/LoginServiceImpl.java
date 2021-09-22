@@ -1,4 +1,4 @@
-package cn.jiayuli.allsome.service.imp;
+package cn.jiayuli.allsome.service.impl;
 
 import cn.jiayuli.allsome.mapper.custom.CustomUserMapper;
 import cn.jiayuli.allsome.service.LoginService;

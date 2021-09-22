@@ -5,6 +5,6 @@
 
     <!--以下是新增的方法-->
     <select id="userCount" resultType="java.lang.Integer">
-        select count(*) from user
+        select count(*) from t_user
     </select>
 </mapper>
