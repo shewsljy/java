@@ -7,4 +7,8 @@
     <select id="userCount" resultType="java.lang.Integer">
         select count(*) from t_user
     </select>
+
+    <select id="getAllUser" resultType="cn.jiayuli.allsome.vo.UserVO">
+        select * from t_user ${ew.customSqlSegment}
+    </select>
 </mapper>

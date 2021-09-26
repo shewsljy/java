@@ -1,18 +1,24 @@
 package cn.jiayuli.allsome.service.impl;
 
+import cn.jiayuli.allsome.constant.DefaultConstant;
 import cn.jiayuli.allsome.dto.UserDTO;
 import cn.jiayuli.allsome.entity.User;
 import cn.jiayuli.allsome.mapper.UserMapper;
+import cn.jiayuli.allsome.mapper.custom.CustomUserMapper;
 import cn.jiayuli.allsome.service.UserService;
 import cn.jiayuli.allsome.util.MD5Util;
 import cn.jiayuli.allsome.vo.UserVO;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.segments.MergeSegments;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +36,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private CustomUserMapper customUserMapper;
 
     @Override
     public UserDTO queryUserByCode(String code) {
@@ -52,6 +61,9 @@ public class UserServiceImpl implements UserService {
             BeanUtils.copyProperties(userDTO, userBean);
             String md5Pw = MD5Util.MD5Pwd(userDTO.getUserCode(),userDTO.getUserPasswd());
             userBean.setUserPasswd(md5Pw);
+            userBean.setCreateBy(DefaultConstant.DEFAULT_ADMIN);
+            userBean.setCreateTime(LocalDateTime.now());
+            userBean.setUserStatus(DefaultConstant.DEFAULT_STATUS);
             count = userMapper.insert(userBean);
             log.debug("------ userBean = " + userBean.toString());
         }
@@ -70,19 +82,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDTO> queryUsers(UserVO userVO) {
-        List<UserDTO> userDTOList = new ArrayList<UserDTO>();
-        List<User> userBeans = new ArrayList<User>();
-        if (!CollectionUtils.isEmpty(userBeans)){
-            for (User userBean : userBeans) {
-                UserDTO userDTO = new UserDTO();
-                if (userBean != null) {
-                    BeanUtils.copyProperties(userBean, userDTO);
-                    userDTOList.add(userDTO);
-                }
-            }
+    public List<UserVO> queryUsers(UserDTO userDTO) {
+        QueryWrapper<UserVO> ew = new QueryWrapper<>();
+        if (null != userDTO.getUserCode()) {
+            ew.eq("user_code", userDTO.getUserCode());
         }
-        return userDTOList;
+        List<UserVO> userVOList = customUserMapper.getAllUser(ew);
+        return userVOList;
     }
 
     @Override
@@ -105,6 +111,8 @@ public class UserServiceImpl implements UserService {
             User user = new User();
             user.setUserId(userDTO.getUserId());
             user.setUserPasswd(md5PwN);
+            user.setUpdateBy(DefaultConstant.DEFAULT_ADMIN);
+            user.setUpdateTime(LocalDateTime.now());
             userMapper.updateById(user);
             log.debug("------ user = " + user.toString());
             isChange = true;

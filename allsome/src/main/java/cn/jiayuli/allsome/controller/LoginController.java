@@ -24,8 +24,8 @@ public class LoginController {
     }
 
     @PostMapping()
-    public Result postLogin(@RequestParam("code")String code,
-                            @RequestParam("password")String password) {
+    public Result postLogin(@RequestParam("userCode")String code,
+                            @RequestParam("userPasswd")String password) {
         // 从SecurityUtils里边创建一个 subject
         Subject subject = SecurityUtils.getSubject();
         // 在认证提交前准备 token（令牌）
