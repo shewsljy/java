@@ -1,9 +1,7 @@
 package cn.jiayuli.allsome.result;
 
-import cn.jiayuli.allsome.constant.DateTimeFormatConstant;
 import cn.jiayuli.allsome.exception.ApiException;
 import cn.jiayuli.allsome.util.DateTimeUtil;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -22,7 +20,9 @@ public class Result<T> {
      * 响应的时间戳
      */
     private Long timestamp;
-
+    /**
+     * 响应的时间
+     */
     private LocalDateTime datetime;
     /**
      * 响应的具体数据
@@ -45,29 +45,26 @@ public class Result<T> {
         this.data = data;
     }
 
-    public static Result success() {
-        Result result = new Result(ResultCode.SUCCESS);
-        return result;
+    public static <T> Result<T> success() {
+        return new Result<T>(ResultCode.SUCCESS);
     }
 
-    public static Result success(Object data) {
-        Result result = new Result(ResultCode.SUCCESS,data);
-        return result;
+    public static <T> Result<T> success(T data) {
+        return new Result<T>(ResultCode.SUCCESS,data);
     }
 
-    public static Result fail() {
-        Result result = new Result(ResultCode.FAILED);
-        return result;
+    public static <T> Result<T> fail() {
+        return new Result<T>(ResultCode.FAILED);
     }
 
-    public static Result fail(String message) {
-        Result result = new Result(ResultCode.FAILED);
+    public static <T> Result<T> fail(String message) {
+        Result result = new Result<T>(ResultCode.FAILED);
         result.setMessage(message);
         return result;
     }
 
-    public static Result fail(ApiException apiException) {
-        Result result = new Result();
+    public static <T> Result<T> fail(ApiException apiException) {
+        Result result = new Result<T>();
         result.setCode(apiException.getCode());
         result.setMessage(apiException.getMessage());
         return result;

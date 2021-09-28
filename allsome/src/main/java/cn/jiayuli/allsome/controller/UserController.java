@@ -2,15 +2,16 @@ package cn.jiayuli.allsome.controller;
 
 import cn.jiayuli.allsome.annotation.ResponseResult;
 import cn.jiayuli.allsome.dto.UserDTO;
+import cn.jiayuli.allsome.entity.User;
 import cn.jiayuli.allsome.exception.ApiException;
 import cn.jiayuli.allsome.result.Result;
 import cn.jiayuli.allsome.result.ResultCode;
 import cn.jiayuli.allsome.service.LoginService;
 import cn.jiayuli.allsome.service.UserService;
 import cn.jiayuli.allsome.vo.UserVO;
-import org.springframework.beans.BeanUtils;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,11 +29,11 @@ public class UserController {
 
     @GetMapping()
     public Result getUser(@RequestParam("userCode")String code) {
-        UserDTO userDTO = userService.queryUserByCode(code);
-        if (userDTO == null) {
+        UserVO userVO = userService.queryUserByCode(code);
+        if (userVO == null) {
             throw new ApiException(ResultCode.USER_NOT_EXIST);
         }
-        return Result.success(userDTO);
+        return Result.success(userVO);
     }
 
     @GetMapping("/count")
@@ -42,11 +43,9 @@ public class UserController {
     }
 
     @GetMapping("/allUser")
-    public Result getAllUser(UserVO userVO) {
+    public Result getAllUser() {
         UserDTO userDTO = new UserDTO();
-        if (!ObjectUtils.isEmpty(userVO)) {
-            BeanUtils.copyProperties(userVO,userDTO);
-        }
+        userDTO.setUserStatus(0);
         List<UserVO> userVOList = userService.queryUsers(userDTO);
         if (userVOList.isEmpty()) {
             throw new ApiException(ResultCode.USER_NOT_EXIST);
@@ -54,10 +53,18 @@ public class UserController {
         return Result.success(userVOList);
     }
 
+    @GetMapping("/allUserPage")
+    public Result getAllUserPage(Integer pageNum, Integer pageSize) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserStatus(0);
+        IPage<UserVO> userIPage = userService.queryUsersPage(userDTO,pageNum,pageSize);
+        return Result.success(userIPage);
+    }
+
     @PostMapping()
     public Result postUser(@RequestParam("userName")String name,
                            @RequestParam("userCode")String code,
-                           @RequestParam("userGge")Integer age,
+                           @RequestParam("userAge")Integer age,
                            @RequestParam("userPasswd")String password) {
 
         boolean isUnique = userService.checkUserCodeUnique(code);

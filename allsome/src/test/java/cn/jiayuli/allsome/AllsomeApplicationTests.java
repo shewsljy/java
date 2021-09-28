@@ -7,6 +7,8 @@ import cn.jiayuli.allsome.service.UserService;
 import cn.jiayuli.allsome.util.DateTimeUtil;
 import cn.jiayuli.allsome.util.MD5Util;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -22,7 +25,7 @@ import java.util.*;
 @SpringBootTest
 class AllsomeApplicationTests {
 
-    @Autowired
+    @Resource
     private UserMapper userMapper;
 
     @Autowired
@@ -186,6 +189,14 @@ class AllsomeApplicationTests {
         log.debug("timestamp2 : " + timestamp2 + "");
         log.debug("--------localDateTime2-------");
         log.debug("localDateTime2 : " + localDateTime2 + "");
+    }
+
+    @Test
+    void pageTest() {
+        Page<User> page = new Page<>(1,3);
+        IPage<User> userIPage = userMapper.selectPage(page,null);
+        log.debug("userIPageTotal : " + userIPage.getTotal() + "");
+        userIPage.getRecords().forEach(System.out::println);
     }
 
 }

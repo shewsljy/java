@@ -3,6 +3,7 @@ package cn.jiayuli.allsome.shiro;
 import cn.jiayuli.allsome.constant.DigestConstant;
 import cn.jiayuli.allsome.dto.UserDTO;
 import cn.jiayuli.allsome.service.UserService;
+import cn.jiayuli.allsome.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -36,15 +37,15 @@ public class UserRealm extends AuthorizingRealm {
         String code = (String) object;
 //        String password = String.valueOf((char[])authenticationToken.getCredentials());
 //        UserServiceImpl userService = SpringUtil.getBean("userServiceImpl");
-        UserDTO userDTO = userService.queryUserByCode(code);
-        if (ObjectUtils.isEmpty(userDTO)) {
+        UserVO userVO = userService.queryUserByCode(code);
+        if (ObjectUtils.isEmpty(userVO)) {
             throw new AuthenticationException("用户不存在");
         }
 //        else if (!md5psw.equals(userDTO.getPassword())){
 //            throw new AccountException("密码不正确");
 //        }
         else {
-            String passwordInDb = userDTO.getUserPasswd();
+            String passwordInDb = userVO.getUserPasswd();
             //这里验证authenticationToken和simpleAuthenticationInfo的信息
             //SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(name, password, getName());
             SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(code, passwordInDb, ByteSource.Util.bytes(code + DigestConstant.STRING_SALT), getName());

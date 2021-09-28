@@ -11,4 +11,8 @@
     <select id="getAllUser" resultType="cn.jiayuli.allsome.vo.UserVO">
         select * from t_user ${ew.customSqlSegment}
     </select>
+
+    <select id="queryUsersPage" resultType="cn.jiayuli.allsome.vo.UserVO">
+        select * from t_user ${ew.customSqlSegment}
+    </select>
 </mapper>

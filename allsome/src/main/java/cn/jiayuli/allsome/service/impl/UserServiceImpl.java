@@ -11,6 +11,9 @@ import cn.jiayuli.allsome.vo.UserVO;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.segments.MergeSegments;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,25 +36,25 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
-    @Autowired
+    @Resource
     private UserMapper userMapper;
 
-    @Autowired
+    @Resource
     private CustomUserMapper customUserMapper;
 
     @Override
-    public UserDTO queryUserByCode(String code) {
+    public UserVO queryUserByCode(String code) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("user_code",code);
         User user = userMapper.selectOne(queryWrapper);
         if (user == null) {
             return null;
         }
-        UserDTO userDTO = new UserDTO();
-        BeanUtils.copyProperties(user, userDTO);
-        return userDTO;
+        UserVO userVO = new UserVO();
+        BeanUtils.copyProperties(user, userVO);
+        return userVO;
     }
 
     @Override
@@ -87,29 +91,32 @@ public class UserServiceImpl implements UserService {
         if (null != userDTO.getUserCode()) {
             ew.eq("user_code", userDTO.getUserCode());
         }
+        if (null != userDTO.getUserStatus()) {
+            ew.eq("user_status", userDTO.getUserStatus());
+        }
         List<UserVO> userVOList = customUserMapper.getAllUser(ew);
         return userVOList;
     }
 
     @Override
     public Boolean checkUserCodeUnique(String code) {
-        UserDTO userDTO = queryUserByCode(code);
-        return userDTO == null ? true : false;
+        UserVO userVO = queryUserByCode(code);
+        return userVO == null ? true : false;
     }
 
     @Override
     public Boolean changePassword(String code, String passwordOld, String passwordNew) {
         boolean isChange = false;
-        UserDTO userDTO = queryUserByCode(code);
-        log.debug("------ userDTO = " + userDTO.toString());
-        String passwordDb = userDTO.getUserPasswd();
+        UserVO userVO = queryUserByCode(code);
+        log.debug("------ userDTO = " + userVO.toString());
+        String passwordDb = userVO.getUserPasswd();
         String md5Pw = MD5Util.MD5Pwd(code,passwordOld);
         log.debug("------ md5Pw = " + md5Pw);
         if (passwordDb.equals(md5Pw)) {
             String md5PwN = MD5Util.MD5Pwd(code,passwordNew);
             log.debug("------ md5PwN = " + md5PwN);
             User user = new User();
-            user.setUserId(userDTO.getUserId());
+            user.setUserId(userVO.getUserId());
             user.setUserPasswd(md5PwN);
             user.setUpdateBy(DefaultConstant.DEFAULT_ADMIN);
             user.setUpdateTime(LocalDateTime.now());
@@ -118,5 +125,19 @@ public class UserServiceImpl implements UserService {
             isChange = true;
         }
         return isChange;
+    }
+
+    @Override
+    public IPage<UserVO> queryUsersPage(UserDTO userDTO,Integer pageNum,Integer pageSize) {
+        Page<UserVO> page = new Page<>(pageNum,pageSize);
+        QueryWrapper<UserVO> ew = new QueryWrapper<>();
+        if (null != userDTO.getUserCode()) {
+            ew.eq("user_code", userDTO.getUserCode());
+        }
+        if (null != userDTO.getUserStatus()) {
+            ew.eq("user_status", userDTO.getUserStatus());
+        }
+        IPage<UserVO> userVOIPage = customUserMapper.queryUsersPage(page,ew);
+        return userVOIPage;
     }
 }
