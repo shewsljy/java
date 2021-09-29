@@ -27,8 +27,8 @@ public class WebAppConfig implements WebMvcConfigurer {
      *  处理返回类型为String时，Spring框架默认使用的类型转换器为StringHttpMessageConverter，会报错
      *  将MappingJackson2HttpMessageConverter的排序提前
      */
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(0, new MappingJackson2HttpMessageConverter());
-    }
+//    @Override
+//    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+//        converters.add(0, new MappingJackson2HttpMessageConverter());
+//    }
 }

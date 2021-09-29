@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.text.SimpleDateFormat;
@@ -42,7 +43,6 @@ public class DateformatConfig implements WebMvcConfigurer {
      * */
     @Override
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
 
         //localDateTime格式化
         JavaTimeModule module = new JavaTimeModule();
@@ -50,16 +50,32 @@ public class DateformatConfig implements WebMvcConfigurer {
         LocalDateTimeSerializer dateTimeSerializer = new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(pattern));
         module.addDeserializer(LocalDateTime.class, dateTimeDeserializer);
         module.addSerializer(LocalDateTime.class, dateTimeSerializer);
-        ObjectMapper objectMapper = Jackson2ObjectMapperBuilder.json().modules(module)
+
+        //json
+        MappingJackson2HttpMessageConverter jsonConverter = new MappingJackson2HttpMessageConverter();
+
+        ObjectMapper jsonObjectMapper = Jackson2ObjectMapperBuilder.json().modules(module)
+                .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS).build();
+        //json date时间格式化
+        jsonObjectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        jsonObjectMapper.setDateFormat(new SimpleDateFormat(pattern));
+
+        //json 设置格式化内容
+        jsonConverter.setObjectMapper(jsonObjectMapper);
+
+        //xml
+        MappingJackson2XmlHttpMessageConverter xmlConverter = new MappingJackson2XmlHttpMessageConverter();
+        ObjectMapper xmlObjectMapper = Jackson2ObjectMapperBuilder.xml().modules(module)
                 .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS).build();
 
-        //date时间格式化
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.setDateFormat(new SimpleDateFormat(pattern));
+        //xml date时间格式化
+        xmlObjectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        xmlObjectMapper.setDateFormat(new SimpleDateFormat(pattern));
 
-        // 设置格式化内容
-        converter.setObjectMapper(objectMapper);
-        converters.add(0, converter);
+        //xml 设置格式化内容
+        xmlConverter.setObjectMapper(xmlObjectMapper);
 
+        converters.add(0, jsonConverter);
+        converters.add(1, xmlConverter);
     }
 }
