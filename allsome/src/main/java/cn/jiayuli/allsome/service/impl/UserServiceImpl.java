@@ -6,6 +6,7 @@ import cn.jiayuli.allsome.entity.User;
 import cn.jiayuli.allsome.mapper.UserMapper;
 import cn.jiayuli.allsome.mapper.custom.CustomUserMapper;
 import cn.jiayuli.allsome.service.UserService;
+import cn.jiayuli.allsome.util.ConvertUtil;
 import cn.jiayuli.allsome.util.MD5Util;
 import cn.jiayuli.allsome.vo.UserVO;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
@@ -44,6 +45,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Resource
     private CustomUserMapper customUserMapper;
 
+    @Resource
+    private ConvertUtil convertUtil;
+
     @Override
     public UserVO queryUserByCode(String code) {
         QueryWrapper queryWrapper = new QueryWrapper();
@@ -52,8 +56,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (user == null) {
             return null;
         }
-        UserVO userVO = new UserVO();
-        BeanUtils.copyProperties(user, userVO);
+//        UserVO userVO = new UserVO();
+//        BeanUtils.copyProperties(user, userVO);
+        UserVO userVO = convertUtil.dto2Vo(convertUtil.entity2Dto(user));
         return userVO;
     }
 
