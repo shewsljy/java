@@ -5,6 +5,7 @@ import cn.jiayuli.allsome.util.DateTimeUtil;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 public class Result<T> {
@@ -25,6 +26,10 @@ public class Result<T> {
      */
     private LocalDateTime datetime;
     /**
+     * 响应的时间
+     */
+    private Date date;
+    /**
      * 响应的具体数据
      */
     private T data;
@@ -32,6 +37,7 @@ public class Result<T> {
     public Result() {
         this.timestamp = System.currentTimeMillis();
         this.datetime = DateTimeUtil.getDataTimeOfTimestamp(timestamp);
+        this.date = new Date(timestamp);
     }
 
     public Result(ResultCode resultCode) {

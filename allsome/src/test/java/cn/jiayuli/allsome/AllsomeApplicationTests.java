@@ -6,9 +6,13 @@ import cn.jiayuli.allsome.mapper.UserMapper;
 import cn.jiayuli.allsome.service.UserService;
 import cn.jiayuli.allsome.util.DateTimeUtil;
 import cn.jiayuli.allsome.util.MD5Util;
+import cn.jiayuli.allsome.vo.UserVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -197,6 +202,19 @@ class AllsomeApplicationTests {
         IPage<User> userIPage = userMapper.selectPage(page,null);
         log.debug("userIPageTotal : " + userIPage.getTotal() + "");
         userIPage.getRecords().forEach(System.out::println);
+    }
+
+    @Test
+    void jsonXmlTest() throws Exception {
+        JsonMapper jsonMapper = new JsonMapper();
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserStatus(0);
+        IPage<UserVO> usersPage = userService.queryUsersPage(userDTO,1,3);
+        String json = jsonMapper.writeValueAsString(usersPage);
+        log.debug("json = " + json);
+        XmlMapper xmlMapper = new XmlMapper();
+        String xml = xmlMapper.writeValueAsString(usersPage);
+        log.debug("xml = " + xml);
     }
 
 }
