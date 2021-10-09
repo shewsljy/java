@@ -1,11 +1,15 @@
 package cn.jiayuli.allsome.vo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
+@JsonTypeName("userItem")
 public class UserVO implements Serializable {
     private static final long serialVersionUID = 1L;
 

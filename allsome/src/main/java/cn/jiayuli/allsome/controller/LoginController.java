@@ -18,9 +18,9 @@ import springfox.documentation.annotations.ApiIgnore;
 public class LoginController {
 
     @GetMapping()
-    public String getLogin(){
+    public Result getLogin(){
         log.info("login!");
-        return "login/login";
+        return Result.success("login/login");
     }
 
     @PostMapping()

@@ -1,10 +1,11 @@
 package cn.jiayuli.allsome.config;
 
 import cn.jiayuli.allsome.interceptor.ResponseResultInterceptor;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
@@ -74,11 +75,15 @@ public class WebAppConfig implements WebMvcConfigurer {
         //xml
         MappingJackson2XmlHttpMessageConverter xmlConverter = new MappingJackson2XmlHttpMessageConverter();
         ObjectMapper xmlObjectMapper = Jackson2ObjectMapperBuilder.xml().modules(module)
+                //.defaultUseWrapper(false)
                 .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS).build();
 
         //xml date时间格式化
         xmlObjectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         xmlObjectMapper.setDateFormat(new SimpleDateFormat(pattern));
+
+        //设置响应xml含有 <?xml version='1.0' encoding='UTF-8'?>
+        ((XmlMapper)xmlObjectMapper).configure(ToXmlGenerator.Feature.WRITE_XML_DECLARATION,true);
 
         //xml 设置格式化内容
         xmlConverter.setObjectMapper(xmlObjectMapper);

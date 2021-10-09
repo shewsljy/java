@@ -2,15 +2,14 @@ package cn.jiayuli.allsome.controller;
 
 import cn.jiayuli.allsome.annotation.ResponseResult;
 import cn.jiayuli.allsome.dto.UserDTO;
-import cn.jiayuli.allsome.entity.User;
 import cn.jiayuli.allsome.exception.ApiException;
 import cn.jiayuli.allsome.result.Result;
 import cn.jiayuli.allsome.result.ResultCode;
 import cn.jiayuli.allsome.service.LoginService;
 import cn.jiayuli.allsome.service.UserService;
+import cn.jiayuli.allsome.vo.UserListVO;
 import cn.jiayuli.allsome.vo.UserVO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,7 +49,9 @@ public class UserController {
         if (userVOList.isEmpty()) {
             throw new ApiException(ResultCode.USER_NOT_EXIST);
         }
-        return Result.success(userVOList);
+        UserListVO listVO = new UserListVO();
+        listVO.setUserVOList(userVOList);
+        return Result.success(listVO);
     }
 
     @GetMapping("/allUserPage")
