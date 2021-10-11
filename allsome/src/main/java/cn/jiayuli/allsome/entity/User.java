@@ -1,8 +1,7 @@
 package cn.jiayuli.allsome.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
 import lombok.Data;
@@ -26,7 +25,7 @@ public class User implements Serializable {
     /**
      * 用户ID
      */
-    @TableId(value = "user_id", type = IdType.AUTO)
+    @TableId(value = "user_id", type = IdType.INPUT)
     private Long userId;
 
     /**
@@ -57,21 +56,25 @@ public class User implements Serializable {
     /**
      * 创建时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     /**
      * 创建人编码
      */
+    @TableField(fill = FieldFill.INSERT)
     private String createBy;
 
     /**
      * 更新时间
      */
+    @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 
     /**
      * 更新人编码
      */
+    @TableField(fill = FieldFill.UPDATE)
     private String updateBy;
 
 

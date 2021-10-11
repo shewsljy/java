@@ -3,6 +3,7 @@ package cn.jiayuli.allsome;
 import cn.jiayuli.allsome.dto.UserDTO;
 import cn.jiayuli.allsome.entity.User;
 import cn.jiayuli.allsome.mapper.UserMapper;
+import cn.jiayuli.allsome.mapper.custom.MysqlSequenceMapper;
 import cn.jiayuli.allsome.service.UserService;
 import cn.jiayuli.allsome.util.DateTimeUtil;
 import cn.jiayuli.allsome.util.MD5Util;
@@ -10,7 +11,6 @@ import cn.jiayuli.allsome.vo.UserVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -35,6 +34,9 @@ class AllsomeApplicationTests {
 
     @Autowired
     private UserService userService;
+
+    @Resource
+    private MysqlSequenceMapper sequenceMapper;
 
     @Test
     void contextLoads() {
@@ -60,7 +62,7 @@ class AllsomeApplicationTests {
     @Transactional
     void addUserBatchTest() {
         log.debug("------ addUserBatch method test ------");
-        List<UserDTO> userDTOList = new ArrayList<UserDTO>();
+        List<UserDTO> userDTOList = new ArrayList<>();
         UserDTO userDTO01 = new UserDTO();
         userDTO01.setUserCode("code01");
         userDTO01.setUserName("name01");
@@ -76,10 +78,8 @@ class AllsomeApplicationTests {
         userDTOList.add(userDTO01);
         userDTOList.add(userDTO02);
         userDTOList.add(null);
-        int count01 = userService.addUserBatch(userDTOList);
-        log.debug("------ count01 = " + count01);
-        int count02 = userService.addUserBatch(userDTOList);
-        log.debug("------ count02 = " + count02);
+        userService.addUserBatch(userDTOList);
+        userService.addUserBatch(userDTOList);
     }
 
     @Test
@@ -122,6 +122,7 @@ class AllsomeApplicationTests {
         user.setUserName("user0001");
         user.setUserPasswd(DigestUtils.md5DigestAsHex("123456".getBytes()));
         user.setUserAge(28);
+        user.setUserId(sequenceMapper.seqUserNextVal());
         Integer insertCount = userMapper.insert(user);
         log.debug("------ insertCount : " + insertCount.toString() + " ------");
 

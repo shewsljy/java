@@ -5,25 +5,21 @@ import cn.jiayuli.allsome.dto.UserDTO;
 import cn.jiayuli.allsome.entity.User;
 import cn.jiayuli.allsome.mapper.UserMapper;
 import cn.jiayuli.allsome.mapper.custom.CustomUserMapper;
+import cn.jiayuli.allsome.mapper.custom.MysqlSequenceMapper;
 import cn.jiayuli.allsome.service.UserService;
 import cn.jiayuli.allsome.util.ConvertUtil;
 import cn.jiayuli.allsome.util.MD5Util;
 import cn.jiayuli.allsome.vo.UserVO;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.segments.MergeSegments;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +42,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private CustomUserMapper customUserMapper;
 
     @Resource
+    private MysqlSequenceMapper sequenceMapper;
+
+    @Resource
     private ConvertUtil convertUtil;
 
     @Override
@@ -56,8 +55,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (user == null) {
             return null;
         }
-//        UserVO userVO = new UserVO();
-//        BeanUtils.copyProperties(user, userVO);
         UserVO userVO = convertUtil.dto2Vo(convertUtil.entity2Dto(user));
         return userVO;
     }
@@ -65,14 +62,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public Integer addUser(UserDTO userDTO) {
         int count = 0;
-        if (userDTO != null && checkUserCodeUnique(userDTO.getUserCode())) {
-            User userBean = new User();
-            BeanUtils.copyProperties(userDTO, userBean);
-            String md5Pw = MD5Util.MD5Pwd(userDTO.getUserCode(),userDTO.getUserPasswd());
-            userBean.setUserPasswd(md5Pw);
-            userBean.setCreateBy(DefaultConstant.DEFAULT_ADMIN);
-            userBean.setCreateTime(LocalDateTime.now());
-            userBean.setUserStatus(DefaultConstant.DEFAULT_STATUS);
+        if (!ObjectUtils.isEmpty(userDTO) && checkUserCodeUnique(userDTO.getUserCode())) {
+            User userBean = convertUtil.dto2Entity(userDTO);
+            addUserProperties(userBean,userDTO);
             count = userMapper.insert(userBean);
             log.debug("------ userBean = " + userBean.toString());
         }
@@ -80,14 +72,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public Integer addUserBatch(List<UserDTO> userDTOList) {
-        int count = 0;
+    public Boolean addUserBatch(List<UserDTO> userDTOList) {
+        List<User> userList = new ArrayList<>();
         if (!CollectionUtils.isEmpty(userDTOList)) {
             for (UserDTO userDTO : userDTOList ) {
-                count = count + addUser(userDTO);
+                if (!ObjectUtils.isEmpty(userDTO) && checkUserCodeUnique(userDTO.getUserCode())) {
+                    User user = convertUtil.dto2Entity(userDTO);
+                    addUserProperties(user, userDTO);
+                    userList.add(user);
+                }
             }
         }
-        return count;
+        return saveBatch(userList);
+    }
+
+    private void addUserProperties(User user,UserDTO userDTO) {
+        String md5Pw = MD5Util.MD5Pwd(userDTO.getUserCode(),userDTO.getUserPasswd());
+        Long id = sequenceMapper.seqUserNextVal();
+        log.debug("seq_user_id : " + id.toString());
+        user.setUserId(id);
+        user.setUserPasswd(md5Pw);
+//        user.setCreateBy(DefaultConstant.DEFAULT_SYSTEM);
+        user.setUserStatus(DefaultConstant.DEFAULT_STATUS);
     }
 
     @Override
@@ -113,7 +119,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public Boolean changePassword(String code, String passwordOld, String passwordNew) {
         boolean isChange = false;
         UserVO userVO = queryUserByCode(code);
-        log.debug("------ userDTO = " + userVO.toString());
+        log.debug("------ userVO = " + userVO.toString());
         String passwordDb = userVO.getUserPasswd();
         String md5Pw = MD5Util.MD5Pwd(code,passwordOld);
         log.debug("------ md5Pw = " + md5Pw);
@@ -123,8 +129,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             User user = new User();
             user.setUserId(userVO.getUserId());
             user.setUserPasswd(md5PwN);
-            user.setUpdateBy(DefaultConstant.DEFAULT_ADMIN);
-            user.setUpdateTime(LocalDateTime.now());
+//            user.setUpdateBy(DefaultConstant.DEFAULT_SYSTEM);
             userMapper.updateById(user);
             log.debug("------ user = " + user.toString());
             isChange = true;

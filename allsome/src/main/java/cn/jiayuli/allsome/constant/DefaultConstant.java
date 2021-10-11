@@ -5,7 +5,7 @@ public class DefaultConstant {
     /**
      * 默认创建人、修改人
      */
-    public static final String DEFAULT_ADMIN = "admin";
+    public static final String DEFAULT_SYSTEM = "system";
 
     /**
      * 默认状态

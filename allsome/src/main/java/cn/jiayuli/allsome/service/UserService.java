@@ -11,7 +11,7 @@ import java.util.List;
 public interface UserService extends IService<User>{
     UserVO queryUserByCode(String code);
     Integer addUser(UserDTO userDTO);
-    Integer addUserBatch(List<UserDTO> userDTOList);
+    Boolean addUserBatch(List<UserDTO> userDTOList);
     List<UserVO> queryUsers(UserDTO userDTO);
     Boolean checkUserCodeUnique(String code);
     Boolean changePassword(String code,String passwordOld,String passwordNew);
