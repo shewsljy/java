@@ -26,8 +26,8 @@ public class InputScanner {
         System.out.println("输入的字符串值为:" + inputOfString);
         System.out.println("请输入一个字符:");
         String inputOfChar = input.next();
-        char subtringOfString = inputOfChar.charAt(0);
-        System.out.println("输入的字符值为:" + subtringOfString);
+        char subOfString = inputOfChar.charAt(0);
+        System.out.println("输入的字符值为:" + subOfString);
         System.out.println("请输入一个布尔值:");
         Boolean inputOfBoolean = input.nextBoolean();
         System.out.println("输入的布尔值为:" + inputOfBoolean);
